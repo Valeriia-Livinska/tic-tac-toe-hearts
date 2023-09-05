@@ -1,0 +1,210 @@
+:root {
+  --cell-size: 100px;
+  --mark-size: calc(var(--cell-size) * 0.9);
+  --transition-duration: 250ms;
+  --cubic-bezier: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  background-color: cornflowerblue;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+.inputForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 20px 0 20px;
+}
+
+.inputForm input {
+  width: 80px;
+  border: none;
+  border-radius: 2px;
+  background: steelblue;
+  color: gainsboro;
+  outline: 1px solid gainsboro;
+}
+
+.inputForm button {
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  background-color: transparent;
+  cursor: pointer;
+  border: 2px solid gainsboro;
+  border-radius: 4px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  transition: background-color var(--transition-duration) var(--cubic-bezier),
+    box-shadow var(--transition-duration) var(--cubic-bezier),
+    border-color var(--transition-duration) var(--cubic-bezier);
+}
+
+.inputForm button:hover,
+.inputForm button:focus {
+  border: 2px solid dimgray;
+  background-color: pink;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+}
+
+#clearButton:hover,
+#clearButton:focus {
+  background-color: gainsboro;
+}
+
+.board {
+  width: 100vw;
+  height: 90vh;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: repeat(3, auto);
+}
+
+.cell {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-wrap: anywhere;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  text-align: center;
+  color: dimgray;
+  border: 1px solid gainsboro;
+  cursor: pointer;
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+  border-top: none;
+}
+
+.cell:nth-child(3n + 1) {
+  border-left: none;
+}
+
+.cell:nth-child(3n + 3) {
+  border-right: none;
+}
+
+.cell:nth-child(7),
+.cell:nth-child(8),
+.cell:last-child {
+  border-bottom: none;
+}
+
+.cell.x,
+.cell.heart {
+  cursor: not-allowed;
+}
+
+.cell.x::before,
+.cell.x::after {
+  background-color: lightgrey;
+}
+
+.cell.heart::before,
+.cell.heart::after {
+  background-color: pink;
+}
+
+.board.x .cell:not(.x):not(.heart):hover::before,
+.board.x .cell:not(.x):not(.heart):hover::after,
+.board.heart .cell:not(.x):not(.heart):hover::before,
+.board.heart .cell:not(.x):not(.heart):hover::after {
+  background-color: steelblue;
+}
+
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.heart):hover::before,
+.board.x .cell:not(.x):not(.heart):hover::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: calc(var(--mark-size) * 0.15);
+  height: var(--mark-size);
+}
+
+.cell.x::before,
+.board.x .cell:not(.x):not(.heart):hover::before {
+  transform: rotate(45deg);
+}
+
+.cell.x::after,
+.board.x .cell:not(.x):not(.heart):hover::after {
+  transform: rotate(-45deg);
+}
+
+.cell.heart::before,
+.cell.heart::after,
+.board.heart .cell:not(.x):not(.heart):hover::before,
+.board.heart .cell:not(.x):not(.heart):hover::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: calc(var(--mark-size) * 0.5);
+  height: calc(var(--mark-size) * 0.8);
+  border-radius: 50px 50px 0 0;
+}
+
+.cell.heart::before,
+.board.heart .cell:not(.x):not(.heart):hover::before {
+  transform: rotate(45deg);
+  transform-origin: 35px 45px;
+}
+
+.cell.heart::after,
+.board.heart .cell:not(.x):not(.heart):hover::after {
+  transform: rotate(-45deg);
+  transform-origin: 10px 44px;
+}
+
+.winning-message {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 5rem;
+  color: gainsboro;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.winning-message button {
+  padding: 0.25em 0.5em;
+  font-size: 2rem;
+  border-radius: 4px;
+  border: 1px solid black;
+  background-color: gainsboro;
+  cursor: pointer;
+  transition: background-color var(--transition-duration) var(--cubic-bezier),
+    border-color var(--transition-duration) var(--cubic-bezier);
+}
+
+.winning-message button:hover {
+  border: 1px solid gainsboro;
+  background-color: black;
+  color: gainsboro;
+}
+
+.winning-message.show {
+  display: flex;
+}
