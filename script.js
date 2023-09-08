@@ -19,6 +19,7 @@ const clearBtn = document.getElementById("clearButton");
 
 const cellElements = document.querySelectorAll("[data-cell]");
 const board = document.getElementById("board");
+const undoBtn = document.getElementById("undoBtn");
 const winningMessageElement = document.getElementById("winningMessage");
 const winningMessageTextElement = document.querySelector(
   "[data-winning-message-text]"
@@ -27,12 +28,14 @@ const restartBtn = document.getElementById("restartButton");
 
 let heartTurn;
 let wordsArr;
+let currentCell;
 
 startGame();
 
 restartBtn.addEventListener("click", startGame);
 form.addEventListener("submit", handleDoneBtnClick);
 clearBtn.addEventListener("click", handleClear);
+undoBtn.addEventListener("click", handleUndo);
 
 function startGame() {
   heartTurn = false;
@@ -142,6 +145,8 @@ function isDraw() {
 
 function placeMark(cell, currentClass) {
   cell.classList.add(currentClass);
+  undoBtn.disabled = false;
+  currentCell = cell;
 }
 
 function swapTurns() {
@@ -165,4 +170,17 @@ function checkWin(currentClass) {
       return cellElements[index].classList.contains(currentClass);
     });
   });
+}
+
+function handleUndo() {
+  if (heartTurn) {
+    currentCell.classList.remove(X_CLASS);
+  } else {
+    currentCell.classList.remove(HEART_CLASS);
+  }
+  undoBtn.disabled = true;
+  currentCell.removeEventListener("click", handleClick);
+  currentCell.addEventListener("click", handleClick, { once: true });
+  swapTurns();
+  setBoardHoverClass();
 }
