@@ -18,19 +18,25 @@
     <title>Tic Tac Toe</title>
   </head>
   <body>
-    <header>
-      <form action="" autocomplete="off" class="inputForm" id="inputForm">
-        <input type="text" data-cell-value name="cell-value" />
-        <input type="text" data-cell-value name="cell-value" />
-        <input type="text" data-cell-value name="cell-value" />
-        <input type="text" data-cell-value name="cell-value" />
-        <input type="text" data-cell-value name="cell-value" />
-        <input type="text" data-cell-value name="cell-value" />
-        <input type="text" data-cell-value name="cell-value" />
-        <input type="text" data-cell-value name="cell-value" />
-        <input type="text" data-cell-value name="cell-value" />
-        <button type="submit">done</button>
-        <button type="button" id="clearButton">clear</button>
+    <header class="header">
+      <form action="" autocomplete="off" class="input-form" id="inputForm">
+        <fieldset class="sets-name">
+          <input type="text" data-sets-name name="sets-name" required />
+          <label for="sets-name" id="sets-name" class="sets-name-label">Set's name</label>
+        </fieldset>
+        <fieldset class="set-words">
+          <input type="text" data-cell-value name="cell-value" />
+          <input type="text" data-cell-value name="cell-value" />
+          <input type="text" data-cell-value name="cell-value" />
+          <input type="text" data-cell-value name="cell-value" />
+          <input type="text" data-cell-value name="cell-value" />
+          <input type="text" data-cell-value name="cell-value" />
+          <input type="text" data-cell-value name="cell-value" />
+          <input type="text" data-cell-value name="cell-value" />
+          <input type="text" data-cell-value name="cell-value" />
+          <button type="submit">done</button>
+          <button type="button" id="clearButton">clear</button>
+        </fieldset>
       </form>
     </header>
     <main>
