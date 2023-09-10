@@ -17,6 +17,8 @@ const form = document.getElementById("inputForm");
 const inputElements = document.querySelectorAll("[data-cell-value]");
 const clearBtn = document.getElementById("clearButton");
 
+const sliderEl = document.getElementById("fontSizeControl");
+
 const cellElements = document.querySelectorAll("[data-cell]");
 const board = document.getElementById("board");
 const undoBtn = document.getElementById("undoBtn");
@@ -26,6 +28,7 @@ const winningMessageTextElement = document.querySelector(
 );
 const restartBtn = document.getElementById("restartButton");
 
+let themeSettings;
 let heartTurn;
 let wordsArr;
 let currentCell;
@@ -36,9 +39,11 @@ restartBtn.addEventListener("click", startGame);
 form.addEventListener("submit", handleDoneBtnClick);
 clearBtn.addEventListener("click", handleClear);
 undoBtn.addEventListener("click", handleUndo);
+sliderEl.addEventListener("input", onSliderInput);
 
 function startGame() {
   heartTurn = false;
+  undoBtn.disabled = true;
   cellElements.forEach((cell) => {
     cell.classList.remove(X_CLASS);
     cell.classList.remove(HEART_CLASS);
@@ -183,4 +188,10 @@ function handleUndo() {
   currentCell.addEventListener("click", handleClick, { once: true });
   swapTurns();
   setBoardHoverClass();
+}
+
+function onSliderInput(event) {
+  cellElements.forEach((cell) => {
+    cell.style.fontSize = `${sliderEl.value}px`;
+  });
 }

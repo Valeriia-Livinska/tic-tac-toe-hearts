@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -20,10 +24,15 @@
   <body>
     <header class="header">
       <form action="" autocomplete="off" class="input-form" id="inputForm">
-        <fieldset class="sets-name">
-          <input type="text" data-sets-name name="sets-name" required />
-          <label for="sets-name" id="sets-name" class="sets-name-label">Set's name</label>
-        </fieldset>
+        <div class="set-name-wrapper">
+          <p>Add new set</p>
+          <fieldset class="sets-name">
+            <input type="text" data-sets-name name="sets-name" required />
+            <label for="sets-name" id="sets-name" class="sets-name-label"
+              >Set's name</label
+            >
+          </fieldset>
+        </div>
         <fieldset class="set-words">
           <input type="text" data-cell-value name="cell-value" />
           <input type="text" data-cell-value name="cell-value" />
@@ -38,6 +47,17 @@
           <button type="button" id="clearButton">clear</button>
         </fieldset>
       </form>
+      <div class="font-control-wrapper">
+        <label for="fontSizeControl">Increase font size on board</label>
+        <input
+          id="fontSizeControl"
+          type="range"
+          name="fontSizeControl"
+          min="18"
+          max="28"
+          value="18"
+        />
+      </div>
     </header>
     <main>
       <div class="board" id="board">
@@ -51,7 +71,9 @@
         <div class="cell" data-cell id="7"></div>
         <div class="cell" data-cell id="8"></div>
       </div>
-      <button type="button" id="undoBtn">UNDO</button>
+      <button type="button" id="undoBtn" class="undo-button">
+        <i class="fa-solid fa-arrow-rotate-left fa-2xl"></i>
+      </button>
       <div class="winning-message" id="winningMessage">
         <div class="winning-message-text" data-winning-message-text></div>
         <button id="restartButton">Restart</button>

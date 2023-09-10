@@ -6,12 +6,14 @@
 }
 
 body {
+  color: #1f1f29;
   background-color: cornflowerblue;
 }
 
 h1,
 h2,
-fieldset {
+fieldset,
+p {
   margin: 0;
   padding: 0;
 }
@@ -23,18 +25,26 @@ fieldset {
 .input-form {
   display: flex;
   flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.set-name-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
 }
 
 .sets-name {
   position: relative;
   display: inline-block;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   margin-bottom: 10px;
   border: none;
 }
 
 .sets-name [data-sets-name] {
-  width: 300px;
+  width: 250px;
   border-radius: 1rem;
   background: none;
   padding: 1rem;
@@ -80,15 +90,16 @@ fieldset {
 }
 
 .input-form button {
-  padding: 4px;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   min-width: 50px;
-  background-color: transparent;
   cursor: pointer;
+  color: #1f1f29;
+  background-color: transparent;
   border: 2px solid gainsboro;
-  border-radius: 4px;
+  border-radius: 16px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
     0px 2px 1px rgba(0, 0, 0, 0.2);
   transition: background-color var(--transition-duration) var(--cubic-bezier),
@@ -106,6 +117,57 @@ fieldset {
 #clearButton:hover,
 #clearButton:focus {
   background-color: gainsboro;
+}
+
+.font-control-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100px;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid white;
+}
+
+/* Chrome, Safari, Opera, and Edge */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 15px;
+  background: gainsboro;
+  border-radius: 16px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 15px;
+  width: 15px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 2px solid steelblue;
+  box-shadow: -407px 0 0 400px steelblue;
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-track {
+  height: 15px;
+  background: gainsboro;
+  border-radius: 16px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 15px;
+  width: 15px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 2px solid steelblue;
+  box-shadow: -407px 0 0 400px steelblue;
 }
 
 .board {
@@ -128,9 +190,11 @@ fieldset {
   width: var(--cell-size);
   height: var(--cell-size);
   text-align: center;
-  color: dimgray;
+  color: #1f1f29;
+  font-size: 18px;
   border: 1px solid gainsboro;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .cell:first-child,
@@ -218,6 +282,37 @@ fieldset {
 .board.heart .cell:not(.x):not(.heart):hover::after {
   transform: rotate(-45deg);
   transform-origin: 10px 44px;
+}
+
+.undo-button {
+  position: absolute;
+  top: 65%;
+  left: 80%;
+  width: 75px;
+  height: 75px;
+  cursor: pointer;
+  color: white;
+  background: transparent;
+  border: 2px solid gainsboro;
+  border-radius: 16px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  transition: background-color var(--transition-duration) var(--cubic-bezier),
+    box-shadow var(--transition-duration) var(--cubic-bezier),
+    border-color var(--transition-duration) var(--cubic-bezier);
+}
+
+.undo-button:hover,
+.undo-button:focus {
+  border: 2px solid dimgray;
+  background-color: gainsboro;
+  color: #1f1f29;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+}
+
+.undo-button:disabled {
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 .winning-message {
