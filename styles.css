@@ -1,4 +1,14 @@
 :root {
+  --primary-background-color: cornflowerblue;
+  --secondary-background-color: steelblue;
+  --primary-background-accent-color: gainsboro;
+  --secondary-background-accent-color: white;
+  --primary-accent-color: lightgrey;
+  --secondary-accent-color: pink;
+  --main-text-color: #1f1f29;
+  --border-color: dimgray;
+  --winning-message-color: black;
+
   --cell-size: 100px;
   --mark-size: calc(var(--cell-size) * 0.9);
   --transition-duration: 250ms;
@@ -6,8 +16,8 @@
 }
 
 body {
-  color: #1f1f29;
-  background-color: cornflowerblue;
+  color: var(--main-text-color);
+  background-color: var(--primary-background-color);
 }
 
 h1,
@@ -38,7 +48,6 @@ p {
 .sets-name {
   position: relative;
   display: inline-block;
-  /* margin: 0 auto; */
   margin-bottom: 10px;
   border: none;
 }
@@ -50,14 +59,14 @@ p {
   padding: 1rem;
   font-size: 1rem;
   line-height: 1.3rem;
-  color: white;
+  color: var(--secondary-background-accent-color);
   transition: border var(--transition-duration) var(--cubic-bezier);
 }
 
 .sets-name-label {
   position: absolute;
   left: 15px;
-  color: gainsboro;
+  color: var(--primary-background-accent-color);
   pointer-events: none;
   transform: translateY(1rem);
   transition: var(--transition-duration) var(--cubic-bezier);
@@ -67,7 +76,7 @@ p {
 .sets-name [data-sets-name]:valid ~ .sets-name-label {
   transform: translateY(-90%) scale(0.8);
   padding: 0 0.2rem;
-  color: white;
+  color: var(--secondary-background-accent-color);
 }
 
 .set-words {
@@ -82,11 +91,12 @@ p {
 .input-form input {
   padding: 5px;
   width: 80px;
+  line-height: 1.3;
+  color: var(--primary-background-accent-color);
   border: none;
   border-radius: 2px;
-  background: steelblue;
-  color: gainsboro;
-  outline: 1px solid gainsboro;
+  background: var(--secondary-background-color);
+  outline: 1px solid var(--primary-background-accent-color);
 }
 
 .input-form button {
@@ -96,9 +106,9 @@ p {
   justify-content: center;
   min-width: 50px;
   cursor: pointer;
-  color: #1f1f29;
+  color: var(--main-text-color);
   background-color: transparent;
-  border: 2px solid gainsboro;
+  border: 2px solid var(--primary-background-accent-color);
   border-radius: 16px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
     0px 2px 1px rgba(0, 0, 0, 0.2);
@@ -109,14 +119,14 @@ p {
 
 .input-form button:hover,
 .input-form button:focus {
-  border: 2px solid dimgray;
-  background-color: pink;
+  border: 2px solid var(--border-color);
+  background-color: var(--secondary-accent-color);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 }
 
 #clearButton:hover,
 #clearButton:focus {
-  background-color: gainsboro;
+  background-color: var(--primary-background-accent-color);
 }
 
 .font-control-wrapper {
@@ -133,13 +143,13 @@ input[type="range"] {
   outline: none;
   overflow: hidden;
   border-radius: 16px;
-  border: 1px solid white;
+  border: 1px solid var(--secondary-background-accent-color);
 }
 
 /* Chrome, Safari, Opera, and Edge */
 input[type="range"]::-webkit-slider-runnable-track {
   height: 15px;
-  background: gainsboro;
+  background: var(--primary-background-accent-color);
   border-radius: 16px;
 }
 
@@ -148,26 +158,26 @@ input[type="range"]::-webkit-slider-thumb {
   appearance: none;
   height: 15px;
   width: 15px;
-  background-color: #fff;
+  background-color: var(--secondary-background-accent-color);
   border-radius: 50%;
-  border: 2px solid steelblue;
-  box-shadow: -407px 0 0 400px steelblue;
+  border: 2px solid var(--secondary-background-color);
+  box-shadow: -407px 0 0 400px var(--secondary-background-color);
 }
 
 /* Firefox */
 input[type="range"]::-moz-range-track {
   height: 15px;
-  background: gainsboro;
+  background: var(--primary-background-accent-color);
   border-radius: 16px;
 }
 
 input[type="range"]::-moz-range-thumb {
   height: 15px;
   width: 15px;
-  background-color: #fff;
+  background-color: var(--secondary-background-accent-color);
   border-radius: 50%;
-  border: 2px solid steelblue;
-  box-shadow: -407px 0 0 400px steelblue;
+  border: 2px solid var(--secondary-background-color);
+  box-shadow: -407px 0 0 400px var(--secondary-background-color);
 }
 
 .board {
@@ -190,9 +200,9 @@ input[type="range"]::-moz-range-thumb {
   width: var(--cell-size);
   height: var(--cell-size);
   text-align: center;
-  color: #1f1f29;
+  color: var(--main-text-color);
   font-size: 18px;
-  border: 1px solid gainsboro;
+  border: 1px solid var(--primary-background-accent-color);
   cursor: pointer;
   overflow: hidden;
 }
@@ -224,19 +234,19 @@ input[type="range"]::-moz-range-thumb {
 
 .cell.x::before,
 .cell.x::after {
-  background-color: lightgrey;
+  background-color: var(--primary-accent-color);
 }
 
 .cell.heart::before,
 .cell.heart::after {
-  background-color: pink;
+  background-color: var(--secondary-accent-color);
 }
 
 .board.x .cell:not(.x):not(.heart):hover::before,
 .board.x .cell:not(.x):not(.heart):hover::after,
 .board.heart .cell:not(.x):not(.heart):hover::before,
 .board.heart .cell:not(.x):not(.heart):hover::after {
-  background-color: steelblue;
+  background-color: var(--secondary-background-color);
 }
 
 .cell.x::before,
@@ -291,9 +301,9 @@ input[type="range"]::-moz-range-thumb {
   width: 75px;
   height: 75px;
   cursor: pointer;
-  color: white;
+  color: var(--secondary-background-accent-color);
   background: transparent;
-  border: 2px solid gainsboro;
+  border: 2px solid var(--primary-background-accent-color);
   border-radius: 16px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
     0px 2px 1px rgba(0, 0, 0, 0.2);
@@ -304,9 +314,9 @@ input[type="range"]::-moz-range-thumb {
 
 .undo-button:hover,
 .undo-button:focus {
-  border: 2px solid dimgray;
-  background-color: gainsboro;
-  color: #1f1f29;
+  border: 2px solid var(--border-color);
+  background-color: var(--primary-background-accent-color);
+  color: var(--main-text-color);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 }
 
@@ -326,7 +336,7 @@ input[type="range"]::-moz-range-thumb {
   align-items: center;
   flex-direction: column;
   font-size: 5rem;
-  color: gainsboro;
+  color: var(--primary-background-accent-color);
   background-color: rgba(0, 0, 0, 0.7);
 }
 
@@ -334,17 +344,17 @@ input[type="range"]::-moz-range-thumb {
   padding: 0.25em 0.5em;
   font-size: 2rem;
   border-radius: 4px;
-  border: 1px solid black;
-  background-color: gainsboro;
+  border: 1px solid var(--winning-message-color);
+  background-color: var(--primary-background-accent-color);
   cursor: pointer;
   transition: background-color var(--transition-duration) var(--cubic-bezier),
     border-color var(--transition-duration) var(--cubic-bezier);
 }
 
 .winning-message button:hover {
-  border: 1px solid gainsboro;
-  background-color: black;
-  color: gainsboro;
+  border: 1px solid var(--primary-background-accent-color);
+  background-color: var(--winning-message-color);
+  color: var(--primary-background-accent-color);
 }
 
 .winning-message.show {

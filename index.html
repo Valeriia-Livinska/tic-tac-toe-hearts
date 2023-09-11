@@ -23,40 +23,56 @@
   </head>
   <body>
     <header class="header">
-      <form action="" autocomplete="off" class="input-form" id="inputForm">
-        <div class="set-name-wrapper">
-          <p>Add new set</p>
-          <fieldset class="sets-name">
-            <input type="text" data-sets-name name="sets-name" required />
-            <label for="sets-name" id="sets-name" class="sets-name-label"
-              >Set's name</label
-            >
-          </fieldset>
+      <!--burger__button-->
+      <!-- <button
+        type="button"
+        class=""
+      >
+        <i class="fa-solid fa-gear"></i>
+      </button> -->
+      <!--burger__menu-->
+      <!-- <button
+            type="button"
+            class=""
+          >
+            <i class="fa-regular fa-circle-xmark"></i>
+          </button> -->
+          <form action="" autocomplete="off" class="input-form" id="inputForm">
+            <div class="set-name-wrapper">
+              <p>Add new set</p>
+              <fieldset class="sets-name">
+                <input type="text" data-sets-name name="sets-name" required />
+                <label for="sets-name" id="sets-name" class="sets-name-label"
+                  >Set's name</label
+                >
+              </fieldset>
+            </div>
+            <fieldset class="set-words">
+              <input type="text" data-cell-value name="cell-value" />
+              <input type="text" data-cell-value name="cell-value" />
+              <input type="text" data-cell-value name="cell-value" />
+              <input type="text" data-cell-value name="cell-value" />
+              <input type="text" data-cell-value name="cell-value" />
+              <input type="text" data-cell-value name="cell-value" />
+              <input type="text" data-cell-value name="cell-value" />
+              <input type="text" data-cell-value name="cell-value" />
+              <input type="text" data-cell-value name="cell-value" />
+              <button type="submit">done</button>
+              <button type="button" id="clearButton">clear</button>
+            </fieldset>
+          </form>
+          <div class="font-control-wrapper">
+            <label for="fontSizeControl">Increase font size on board</label>
+            <input
+              id="fontSizeControl"
+              type="range"
+              name="fontSizeControl"
+              min="18"
+              max="28"
+              value="18"
+            />
+          </div>
         </div>
-        <fieldset class="set-words">
-          <input type="text" data-cell-value name="cell-value" />
-          <input type="text" data-cell-value name="cell-value" />
-          <input type="text" data-cell-value name="cell-value" />
-          <input type="text" data-cell-value name="cell-value" />
-          <input type="text" data-cell-value name="cell-value" />
-          <input type="text" data-cell-value name="cell-value" />
-          <input type="text" data-cell-value name="cell-value" />
-          <input type="text" data-cell-value name="cell-value" />
-          <input type="text" data-cell-value name="cell-value" />
-          <button type="submit">done</button>
-          <button type="button" id="clearButton">clear</button>
-        </fieldset>
-      </form>
-      <div class="font-control-wrapper">
-        <label for="fontSizeControl">Increase font size on board</label>
-        <input
-          id="fontSizeControl"
-          type="range"
-          name="fontSizeControl"
-          min="18"
-          max="28"
-          value="18"
-        />
       </div>
     </header>
     <main>
@@ -79,5 +95,6 @@
         <button id="restartButton">Restart</button>
       </div>
     </main>
+    <script type="module" src="header-modal.js"></script>
   </body>
 </html>
