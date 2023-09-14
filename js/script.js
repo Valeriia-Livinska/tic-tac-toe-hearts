@@ -149,21 +149,28 @@ async function fillInSelectOptions() {
   const allSets = await getAllSets();
   console.log("allSets", allSets);
 
-  const allSetsArr = allSets.map(
+  const optionsArr = allSets.map(
     (set) => `<option value=${set.setName}>${set.setName}</option>`
   );
 
-  allSetsArr.unshift(`<option selected disabled>Select a set</option>`);
-  const options = allSetsArr.join("\n");
+  optionsArr.unshift(`<option selected disabled>Select a set</option>`);
+  const options = optionsArr.join("\n");
   setSelect.innerHTML = options;
+
+  setSelect.onchange = function (event) {
+    const choosenSet = allSets.find((set) => {
+      return set.setName === event.target.value;
+    });
+    fillCells(choosenSet.setWords);
+  };
 }
 
-// function fillCells(arr) {
-//   cellElements.forEach((cell, index) => {
-//     cell.textContent = "";
-//     cell.textContent = arr[index];
-//   });
-// }
+function fillCells(arr) {
+  cellElements.forEach((cell, index) => {
+    cell.textContent = "";
+    cell.textContent = arr[index];
+  });
+}
 
 // function handleDoneBtnClick(event) {
 //   event.preventDefault();
