@@ -103,11 +103,11 @@ async function setCreate(event) {
   wordsArr = [];
 
   inputElements.forEach((input) => {
-    wordsArr.push(input.value.toLowerCase());
+    wordsArr.push(input.value.toLowerCase().trim());
   });
 
   newSet = {
-    setName: setsName.value.toLowerCase(),
+    setName: setsName.value.toLowerCase().trim(),
     setWords: wordsArr,
   };
 
@@ -147,7 +147,6 @@ async function getAllSets() {
 
 async function fillInSelectOptions() {
   const allSets = await getAllSets();
-  console.log("allSets", allSets);
 
   const optionsArr = allSets.map(
     (set) => `<option value=${set.setName}>${set.setName}</option>`
