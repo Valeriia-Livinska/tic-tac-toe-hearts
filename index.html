@@ -17,84 +17,98 @@
       rel="stylesheet"
       href="node_modules/modern-normalize/modern-normalize.css"
     />
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js" defer></script>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script type="module" src="/js/script.js" defer></script>
     <title>Tic Tac Toe</title>
   </head>
   <body>
-    <header class="header">
-      <!--burger__button-->
-      <!-- <button
+    <div class="container">
+      <header class="header">
+        <!--burger__button-->
+        <!-- <button
         type="button"
         class=""
       >
         <i class="fa-solid fa-gear"></i>
       </button> -->
-      <!--burger__menu-->
-      <!-- <button
+        <!--burger__menu-->
+        <!-- <button
             type="button"
             class=""
           >
             <i class="fa-regular fa-circle-xmark"></i>
           </button> -->
-          <form action="" autocomplete="off" class="input-form" id="inputForm">
-            <div class="set-name-wrapper">
-              <p>Add new set</p>
-              <fieldset class="sets-name">
-                <input type="text" data-sets-name name="sets-name" required />
-                <label for="sets-name" id="sets-name" class="sets-name-label"
-                  >Set's name</label
-                >
-              </fieldset>
-            </div>
-            <fieldset class="set-words">
-              <input type="text" data-cell-value name="cell-value" />
-              <input type="text" data-cell-value name="cell-value" />
-              <input type="text" data-cell-value name="cell-value" />
-              <input type="text" data-cell-value name="cell-value" />
-              <input type="text" data-cell-value name="cell-value" />
-              <input type="text" data-cell-value name="cell-value" />
-              <input type="text" data-cell-value name="cell-value" />
-              <input type="text" data-cell-value name="cell-value" />
-              <input type="text" data-cell-value name="cell-value" />
-              <button type="submit">done</button>
-              <button type="button" id="clearButton">clear</button>
+        <form action="" autocomplete="off" class="input-form" id="inputForm">
+          <div class="set-name-wrapper">
+            <p>Create new set</p>
+            <fieldset class="sets-name">
+              <input
+                type="text"
+                data-sets-name
+                id="setsName"
+                name="sets-name"
+                required
+              />
+              <label for="sets-name" id="sets-name" class="sets-name-label"
+                >Set's name</label
+              >
             </fieldset>
-          </form>
-          <div class="font-control-wrapper">
-            <label for="fontSizeControl">Increase font size on board</label>
-            <input
-              id="fontSizeControl"
-              type="range"
-              name="fontSizeControl"
-              min="18"
-              max="28"
-              value="18"
-            />
+          </div>
+          <fieldset class="set-words">
+            <input type="text" data-cell-value name="cell-value" required />
+            <input type="text" data-cell-value name="cell-value" required />
+            <input type="text" data-cell-value name="cell-value" required />
+            <input type="text" data-cell-value name="cell-value" required />
+            <input type="text" data-cell-value name="cell-value" required />
+            <input type="text" data-cell-value name="cell-value" required />
+            <input type="text" data-cell-value name="cell-value" required />
+            <input type="text" data-cell-value name="cell-value" required />
+            <input type="text" data-cell-value name="cell-value" required />
+          </fieldset>
+          <button type="submit">create</button>
+          <button type="button" id="clearButton">clear</button>
+        </form>
+        <div class="font-control-wrapper">
+          <label for="fontSizeControl">Increase font size on board</label>
+          <input
+            id="fontSizeControl"
+            type="range"
+            name="fontSizeControl"
+            min="18"
+            max="28"
+            value="18"
+          />
+        </div>
+      </header>
+      <main>
+        <div class="board" id="board">
+          <div class="cell" data-cell id="0"></div>
+          <div class="cell" data-cell id="1"></div>
+          <div class="cell" data-cell id="2"></div>
+          <div class="cell" data-cell id="3"></div>
+          <div class="cell" data-cell id="4"></div>
+          <div class="cell" data-cell id="5"></div>
+          <div class="cell" data-cell id="6"></div>
+          <div class="cell" data-cell id="7"></div>
+          <div class="cell" data-cell id="8"></div>
+        </div>
+        <button type="button" id="undoBtn" class="undo-button">
+          <i class="fa-solid fa-arrow-rotate-left fa-2xl"></i>
+        </button>
+
+        <div class="set-select-position">
+          <div class="set-select-wrapper" size="5">
+            <select name="set-select" id="setSelect" class="set-select">
+              <option selected disabled>Select a set</option>
+            </select>
           </div>
         </div>
-      </div>
-    </header>
-    <main>
-      <div class="board" id="board">
-        <div class="cell" data-cell id="0"></div>
-        <div class="cell" data-cell id="1"></div>
-        <div class="cell" data-cell id="2"></div>
-        <div class="cell" data-cell id="3"></div>
-        <div class="cell" data-cell id="4"></div>
-        <div class="cell" data-cell id="5"></div>
-        <div class="cell" data-cell id="6"></div>
-        <div class="cell" data-cell id="7"></div>
-        <div class="cell" data-cell id="8"></div>
-      </div>
-      <button type="button" id="undoBtn" class="undo-button">
-        <i class="fa-solid fa-arrow-rotate-left fa-2xl"></i>
-      </button>
-      <div class="winning-message" id="winningMessage">
-        <div class="winning-message-text" data-winning-message-text></div>
-        <button id="restartButton">Restart</button>
-      </div>
-    </main>
-    <script type="module" src="header-modal.js"></script>
+        <div class="winning-message" id="winningMessage">
+          <div class="winning-message-text" data-winning-message-text></div>
+          <button id="restartButton">Restart</button>
+        </div>
+      </main>
+    </div>
+    <script type="module" src="/js/header-modal.js"></script>
   </body>
 </html>

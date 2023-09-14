@@ -1,6 +1,11 @@
+import axios from "axios";
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
+
 const X_CLASS = "x";
 const HEART_CLASS = "heart";
 const STORAGE_KEY = "saved-words";
+axios.defaults.baseURL = "https://63ab93b5fdc006ba6060fe38.mockapi.io";
 
 const WINNING_COMBINATIONS = [
   [0, 1, 2],
@@ -14,6 +19,7 @@ const WINNING_COMBINATIONS = [
 ];
 
 const form = document.getElementById("inputForm");
+const setsName = document.getElementById("setsName");
 const inputElements = document.querySelectorAll("[data-cell-value]");
 const clearBtn = document.getElementById("clearButton");
 
@@ -22,24 +28,28 @@ const sliderEl = document.getElementById("fontSizeControl");
 const cellElements = document.querySelectorAll("[data-cell]");
 const board = document.getElementById("board");
 const undoBtn = document.getElementById("undoBtn");
+const setSelect = document.getElementById("setSelect");
+
 const winningMessageElement = document.getElementById("winningMessage");
 const winningMessageTextElement = document.querySelector(
   "[data-winning-message-text]"
 );
 const restartBtn = document.getElementById("restartButton");
 
-let themeSettings;
+// let themeSettings;
 let heartTurn;
 let wordsArr;
 let currentCell;
+let newSet = {};
 
 startGame();
+fillInSelectOptions();
 
 restartBtn.addEventListener("click", startGame);
-form.addEventListener("submit", handleDoneBtnClick);
+form.addEventListener("submit", setCreate);
 clearBtn.addEventListener("click", handleClear);
 undoBtn.addEventListener("click", handleUndo);
-sliderEl.addEventListener("input", onSliderInput);
+sliderEl.addEventListener("input", handleFontSizeControl);
 
 function startGame() {
   heartTurn = false;
@@ -53,65 +63,125 @@ function startGame() {
   setBoardHoverClass();
   winningMessageElement.classList.remove("show");
 
-  const isStorage = loadStorage();
+  // const isStorage = loadStorage();
 
-  if (isStorage && isStorage.length !== 0) {
-    wordsArr = loadStorage();
-    fillInputs(wordsArr);
-    fillCells(wordsArr);
-  } else {
-    wordsArr = [];
-  }
+  // if (isStorage && isStorage.length !== 0) {
+  //   wordsArr = loadStorage();
+  //   fillInputs(wordsArr);
+  //   fillCells(wordsArr);
+  // } else {
+  //   wordsArr = [];
+  // }
 }
 
-function loadStorage() {
-  try {
-    const serializedState = localStorage.getItem(STORAGE_KEY);
-    return serializedState === null ? undefined : JSON.parse(serializedState);
-  } catch (error) {
-    console.error("Get state error: ", error.message);
-  }
-}
+// function loadStorage() {
+//   try {
+//     const serializedState = localStorage.getItem(STORAGE_KEY);
+//     return serializedState === null ? undefined : JSON.parse(serializedState);
+//   } catch (error) {
+//     console.error("Get state error: ", error.message);
+//   }
+// }
 
-function saveStorage(value) {
-  try {
-    const serializedState = JSON.stringify(value);
-    localStorage.setItem(STORAGE_KEY, serializedState);
-  } catch (error) {
-    console.error("Set state error: ", error.message);
-  }
-}
+// function saveStorage(value) {
+//   try {
+//     const serializedState = JSON.stringify(value);
+//     localStorage.setItem(STORAGE_KEY, serializedState);
+//   } catch (error) {
+//     console.error("Set state error: ", error.message);
+//   }
+// }
 
-function fillInputs(arr) {
-  inputElements.forEach((input, index) => {
-    input.value = arr[index];
-  });
-}
+// function fillInputs(arr) {
+//   inputElements.forEach((input, index) => {
+//     input.value = arr[index];
+//   });
+// }
 
-function fillCells(arr) {
-  cellElements.forEach((cell, index) => {
-    cell.textContent = "";
-    cell.textContent = arr[index];
-  });
-}
-
-function handleDoneBtnClick(event) {
+async function setCreate(event) {
   event.preventDefault();
   wordsArr = [];
+
   inputElements.forEach((input) => {
-    wordsArr.push(input.value);
+    wordsArr.push(input.value.toLowerCase());
   });
-  fillCells(wordsArr);
-  saveStorage(wordsArr);
+
+  newSet = {
+    setName: setsName.value.toLowerCase(),
+    setWords: wordsArr,
+  };
+
+  form.reset();
+  Toastify({
+    text: "New set was created",
+    duration: 3000,
+    gravity: "top",
+    position: "right",
+    stopOnFocus: true,
+    style: {
+      background: "linear-gradient(to right, #00b09b, #96c93d)",
+    },
+  }).showToast();
+
+  await addSet(newSet);
+  fillInSelectOptions();
 }
+
+async function addSet(newSet) {
+  try {
+    await axios.post("/sets", newSet);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function getAllSets() {
+  try {
+    const response = await axios.get("/sets");
+    const { data } = response;
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function fillInSelectOptions() {
+  const allSets = await getAllSets();
+  console.log("allSets", allSets);
+
+  const allSetsArr = allSets.map(
+    (set) => `<option value=${set.setName}>${set.setName}</option>`
+  );
+
+  allSetsArr.unshift(`<option selected disabled>Select a set</option>`);
+  const options = allSetsArr.join("\n");
+  setSelect.innerHTML = options;
+}
+
+// function fillCells(arr) {
+//   cellElements.forEach((cell, index) => {
+//     cell.textContent = "";
+//     cell.textContent = arr[index];
+//   });
+// }
+
+// function handleDoneBtnClick(event) {
+//   event.preventDefault();
+//   wordsArr = [];
+//   inputElements.forEach((input) => {
+//     wordsArr.push(input.value);
+//   });
+//   fillCells(wordsArr);
+//   saveStorage(wordsArr);
+// }
 
 function handleClear() {
   form.reset();
-  cellElements.forEach((cell) => {
-    cell.textContent = "";
-  });
-  wordsArr = [];
-  saveStorage(wordsArr);
+  // cellElements.forEach((cell) => {
+  //   cell.textContent = "";
+  // });
+  // wordsArr = [];
+  // saveStorage(wordsArr);
 }
 
 function handleClick(event) {
@@ -190,7 +260,7 @@ function handleUndo() {
   setBoardHoverClass();
 }
 
-function onSliderInput(event) {
+function handleFontSizeControl(event) {
   cellElements.forEach((cell) => {
     cell.style.fontSize = `${sliderEl.value}px`;
   });
