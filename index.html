@@ -39,35 +39,38 @@
             <i class="fa-regular fa-circle-xmark"></i>
           </button> -->
         <form action="" autocomplete="off" class="input-form" id="inputForm">
-          <div class="set-name-wrapper">
-            <p>Create new set</p>
-            <fieldset class="sets-name">
-              <input
-                type="text"
-                data-sets-name
-                id="setsName"
-                name="sets-name"
-                required
-              />
-              <label for="sets-name" id="sets-name" class="sets-name-label"
-                >Set's name</label
-              >
+          <div>
+            <div class="set-name-wrapper">
+              <p>Create new set</p>
+              <fieldset class="sets-name">
+                <input
+                  type="text"
+                  data-sets-name
+                  id="setsName"
+                  name="sets-name"
+                  required
+                />
+                <label for="sets-name" id="sets-name" class="sets-name-label"
+                  >Set's name</label
+                >
+              </fieldset>
+            </div>
+            <fieldset class="set-words-wrapper">
+              <input type="text" data-cell-value name="cell-value" required />
+              <input type="text" data-cell-value name="cell-value" required />
+              <input type="text" data-cell-value name="cell-value" required />
+              <input type="text" data-cell-value name="cell-value" required />
+              <input type="text" data-cell-value name="cell-value" required />
+              <input type="text" data-cell-value name="cell-value" required />
+              <input type="text" data-cell-value name="cell-value" required />
+              <input type="text" data-cell-value name="cell-value" required />
+              <input type="text" data-cell-value name="cell-value" required />
             </fieldset>
           </div>
-          <fieldset class="set-words">
-            <input type="text" data-cell-value name="cell-value" required />
-            <input type="text" data-cell-value name="cell-value" required />
-            <input type="text" data-cell-value name="cell-value" required />
-            <input type="text" data-cell-value name="cell-value" required />
-            <input type="text" data-cell-value name="cell-value" required />
-            <input type="text" data-cell-value name="cell-value" required />
-            <input type="text" data-cell-value name="cell-value" required />
-            <input type="text" data-cell-value name="cell-value" required />
-            <input type="text" data-cell-value name="cell-value" required />
-          </fieldset>
           <button type="submit">create</button>
           <button type="button" id="clearButton">clear</button>
         </form>
+
         <div class="font-control-wrapper">
           <label for="fontSizeControl">Increase font size on board</label>
           <input
@@ -79,6 +82,80 @@
             value="18"
           />
         </div>
+
+        <fieldset>
+          <p class="theme-title">Theme:</p>
+          <div class="theme-changer">
+            <div>
+              <input
+                type="radio"
+                id="cornflowerTheme"
+                name="color"
+                value="cornflower-theme"
+                checked
+              />
+              <label for="cornflowerTheme">
+                <span>
+                  <img
+                    src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg"
+                    alt="Checked Icon"
+                  />
+                </span>
+              </label>
+            </div>
+
+            <div>
+              <input
+                type="radio"
+                id="blackTheme"
+                name="color"
+                value="black-theme"
+              />
+              <label for="blackTheme">
+                <span>
+                  <img
+                    src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg"
+                    alt="Checked Icon"
+                  />
+                </span>
+              </label>
+            </div>
+
+            <div>
+              <input
+                type="radio"
+                id="greenTheme"
+                name="color"
+                value="green-theme"
+              />
+              <label for="greenTheme">
+                <span>
+                  <img
+                    src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg"
+                    alt="Checked Icon"
+                  />
+                </span>
+              </label>
+            </div>
+
+            <div>
+              <input
+                type="radio"
+                id="whiteTheme"
+                name="color"
+                value="white-theme"
+              />
+              <label for="whiteTheme">
+                <span>
+                  <img
+                    src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg"
+                    alt="Checked Icon"
+                  />
+                </span>
+              </label>
+            </div>
+          </div>
+        </fieldset>
       </header>
       <main>
         <div class="board" id="board">
