@@ -133,7 +133,7 @@ fieldset {
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
-  width: 100px;
+  width: 140px;
   cursor: pointer;
   outline: none;
   overflow: hidden;
