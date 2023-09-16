@@ -1,20 +1,3 @@
-:root {
-  --primary-background-color: cornflowerblue;
-  --secondary-background-color: steelblue;
-  --primary-background-accent-color: gainsboro;
-  --secondary-background-accent-color: white;
-  --primary-accent-color: lightgrey;
-  --secondary-accent-color: pink;
-  --main-text-color: #1f1f29;
-  --border-color: dimgray;
-  --winning-message-color: black;
-
-  --cell-size: 100px;
-  --mark-size: calc(var(--cell-size) * 0.9);
-  --transition-duration: 250ms;
-  --cubic-bezier: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 body {
   color: var(--main-text-color);
   background-color: var(--primary-background-color);
@@ -219,32 +202,37 @@ input[type="radio"] {
   height: 50px;
   cursor: pointer;
   border-radius: 16px;
-  border: 2px solid #ffffff;
+  border: 2px solid var(--border-color);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
 }
 
-.theme-changer img {
+.theme-changer .fa-check {
+  color: white;
   opacity: 0;
   transition: all 0.3s ease;
 }
 
-#cornflowerTheme + label span {
+#defaultTheme + label span {
   background-color: cornflowerblue;
 }
 
 #blackTheme + label span {
-  background-color: #222;
+  background-color: #1a1a1d;
 }
 
 #greenTheme + label span {
-  background-color: green;
+  background-color: #5cdb95;
 }
 
 #whiteTheme + label span {
-  background-color: whitesmoke;
+  background-color: #f7f9fb;
 }
 
-input[type="radio"]:checked + label span img {
+#whiteTheme + label span .fa-check {
+  color: #1a1a1d;
+}
+
+input[type="radio"]:checked + label span .fa-check {
   opacity: 1;
 }
 

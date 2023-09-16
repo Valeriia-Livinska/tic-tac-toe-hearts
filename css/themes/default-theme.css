@@ -1,0 +1,16 @@
+:root {
+  --primary-background-color: cornflowerblue;
+  --secondary-background-color: steelblue;
+  --primary-background-accent-color: gainsboro;
+  --secondary-background-accent-color: white;
+  --primary-accent-color: lightgrey;
+  --secondary-accent-color: pink;
+  --main-text-color: #1f1f29;
+  --border-color: dimgray;
+  --winning-message-color: black;
+
+  --cell-size: 100px;
+  --mark-size: calc(var(--cell-size) * 0.9);
+  --transition-duration: 250ms;
+  --cubic-bezier: cubic-bezier(0.4, 0, 0.2, 1);
+}

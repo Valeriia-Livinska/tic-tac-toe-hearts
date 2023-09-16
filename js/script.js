@@ -43,6 +43,7 @@ let currentCell;
 let newSet = {};
 
 startGame();
+initThemeSelector();
 fillInSelectOptions();
 
 restartBtn.addEventListener("click", startGame);
@@ -72,6 +73,24 @@ function startGame() {
   // } else {
   //   wordsArr = [];
   // }
+}
+
+function initThemeSelector() {
+  const themeRadioBtns = document.getElementsByName("theme-color");
+  const themeStylesheetLink = document.getElementById("themeStylesheetLink");
+
+  themeRadioBtns.forEach((themeBtn) => {
+    themeBtn.removeEventListener("click", onThemeClick);
+    themeBtn.addEventListener("click", onThemeClick);
+  });
+
+  function activateTheme(themeName) {
+    themeStylesheetLink.setAttribute("href", `/css/themes/${themeName}.css`);
+  }
+
+  function onThemeClick(event) {
+    activateTheme(event.target.value);
+  }
 }
 
 // function loadStorage() {
