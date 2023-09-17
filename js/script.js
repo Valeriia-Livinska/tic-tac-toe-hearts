@@ -77,10 +77,7 @@ function startGame() {
 
 function initThemeSelector() {
   const themeRadioBtns = document.getElementsByName("theme-color");
-  const themeStylesheetLink = document.querySelectorAll(
-    "link[href='css/themes/default-theme.css']"
-  );
-  console.log("themeStylesheetLink", themeStylesheetLink);
+  const body = document.querySelector("body");
 
   themeRadioBtns.forEach((themeBtn) => {
     themeBtn.removeEventListener("click", onThemeClick);
@@ -88,9 +85,10 @@ function initThemeSelector() {
   });
 
   function activateTheme(themeName) {
-    themeStylesheetLink.forEach((item) => {
-      item.setAttribute("href", `/css/themes/${themeName}.css`);
-    });
+    // themeStylesheetLink.forEach((item) => {
+    //   item.setAttribute("href", `/css/themes/${themeName}.css`);
+    // });
+    body.setAttribute("data-theme", themeName);
   }
 
   function onThemeClick(event) {
