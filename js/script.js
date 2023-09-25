@@ -85,9 +85,6 @@ function initThemeSelector() {
   });
 
   function activateTheme(themeName) {
-    // themeStylesheetLink.forEach((item) => {
-    //   item.setAttribute("href", `/css/themes/${themeName}.css`);
-    // });
     body.setAttribute("data-theme", themeName);
   }
 

@@ -17,7 +17,6 @@
       rel="stylesheet"
       href="node_modules/modern-normalize/modern-normalize.css"
     />
-    <!-- <link rel="stylesheet" href="css/themes/default-theme.css" /> -->
     <link rel="stylesheet" href="css/styles.css" />
     <script type="module" src="/js/script.js" defer></script>
     <title>Tic Tac Toe</title>
@@ -25,126 +24,174 @@
   <body data-theme="default-theme">
     <div class="container">
       <header class="header">
-        <!--burger__button-->
-        <!-- <button
-        type="button"
-        class=""
-      >
-        <i class="fa-solid fa-gear"></i>
-      </button> -->
-        <!--burger__menu-->
-        <!-- <button
-            type="button"
-            class=""
-          >
-            <i class="fa-regular fa-circle-xmark"></i>
-          </button> -->
-        <form action="" autocomplete="off" class="input-form" id="inputForm">
-          <div>
-            <div class="set-name-wrapper">
-              <p>Create new set</p>
-              <fieldset class="sets-name">
-                <input
-                  type="text"
-                  data-sets-name
-                  id="setsName"
-                  name="sets-name"
-                  required
-                />
-                <label for="sets-name" id="sets-name" class="sets-name-label"
-                  >Set's name</label
-                >
-              </fieldset>
+        <div class="hamburger-menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+        <div class="backdrop">
+          <div class="settings-wrapper">
+            <form
+              action=""
+              autocomplete="off"
+              class="input-form"
+              id="inputForm"
+            >
+              <div>
+                <div class="set-name-wrapper">
+                  <p>Create new set</p>
+                  <fieldset class="sets-name">
+                    <input
+                      type="text"
+                      data-sets-name
+                      id="setsName"
+                      name="sets-name"
+                      required
+                    />
+                    <label
+                      for="sets-name"
+                      id="sets-name"
+                      class="sets-name-label"
+                      >Set's name</label
+                    >
+                  </fieldset>
+                </div>
+                <fieldset class="set-words-wrapper">
+                  <input
+                    type="text"
+                    data-cell-value
+                    name="cell-value"
+                    required
+                  />
+                  <input
+                    type="text"
+                    data-cell-value
+                    name="cell-value"
+                    required
+                  />
+                  <input
+                    type="text"
+                    data-cell-value
+                    name="cell-value"
+                    required
+                  />
+                  <input
+                    type="text"
+                    data-cell-value
+                    name="cell-value"
+                    required
+                  />
+                  <input
+                    type="text"
+                    data-cell-value
+                    name="cell-value"
+                    required
+                  />
+                  <input
+                    type="text"
+                    data-cell-value
+                    name="cell-value"
+                    required
+                  />
+                  <input
+                    type="text"
+                    data-cell-value
+                    name="cell-value"
+                    required
+                  />
+                  <input
+                    type="text"
+                    data-cell-value
+                    name="cell-value"
+                    required
+                  />
+                  <input
+                    type="text"
+                    data-cell-value
+                    name="cell-value"
+                    required
+                  />
+                </fieldset>
+              </div>
+              <button type="submit">create</button>
+              <button type="button" id="clearButton">clear</button>
+            </form>
+
+            <div class="font-control-wrapper">
+              <label for="fontSizeControl">Font size on board</label>
+              <input
+                id="fontSizeControl"
+                type="range"
+                name="fontSizeControl"
+                min="18"
+                max="28"
+                value="18"
+              />
             </div>
-            <fieldset class="set-words-wrapper">
-              <input type="text" data-cell-value name="cell-value" required />
-              <input type="text" data-cell-value name="cell-value" required />
-              <input type="text" data-cell-value name="cell-value" required />
-              <input type="text" data-cell-value name="cell-value" required />
-              <input type="text" data-cell-value name="cell-value" required />
-              <input type="text" data-cell-value name="cell-value" required />
-              <input type="text" data-cell-value name="cell-value" required />
-              <input type="text" data-cell-value name="cell-value" required />
-              <input type="text" data-cell-value name="cell-value" required />
+
+            <fieldset>
+              <p class="theme-title">Theme:</p>
+              <div class="theme-changer">
+                <div>
+                  <input
+                    type="radio"
+                    id="defaultTheme"
+                    name="theme-color"
+                    value="default-theme"
+                    checked
+                  />
+                  <label for="defaultTheme">
+                    <span>
+                      <i class="fa-solid fa-check"></i>
+                    </span>
+                  </label>
+                </div>
+
+                <div>
+                  <input
+                    type="radio"
+                    id="blackTheme"
+                    name="theme-color"
+                    value="black-theme"
+                  />
+                  <label for="blackTheme">
+                    <span>
+                      <i class="fa-solid fa-check"></i>
+                    </span>
+                  </label>
+                </div>
+
+                <div>
+                  <input
+                    type="radio"
+                    id="greenTheme"
+                    name="theme-color"
+                    value="green-theme"
+                  />
+                  <label for="greenTheme">
+                    <span>
+                      <i class="fa-solid fa-check"></i>
+                    </span>
+                  </label>
+                </div>
+
+                <div>
+                  <input
+                    type="radio"
+                    id="whiteTheme"
+                    name="theme-color"
+                    value="white-theme"
+                  />
+                  <label for="whiteTheme">
+                    <span>
+                      <i class="fa-solid fa-check"></i>
+                    </span>
+                  </label>
+                </div>
+              </div>
             </fieldset>
           </div>
-          <button type="submit">create</button>
-          <button type="button" id="clearButton">clear</button>
-        </form>
-
-        <div class="font-control-wrapper">
-          <label for="fontSizeControl">Font size on board</label>
-          <input
-            id="fontSizeControl"
-            type="range"
-            name="fontSizeControl"
-            min="18"
-            max="28"
-            value="18"
-          />
         </div>
-
-        <fieldset>
-          <p class="theme-title">Theme:</p>
-          <div class="theme-changer">
-            <div>
-              <input
-                type="radio"
-                id="defaultTheme"
-                name="theme-color"
-                value="default-theme"
-                checked
-              />
-              <label for="defaultTheme">
-                <span>
-                  <i class="fa-solid fa-check"></i>
-                </span>
-              </label>
-            </div>
-
-            <div>
-              <input
-                type="radio"
-                id="blackTheme"
-                name="theme-color"
-                value="black-theme"
-              />
-              <label for="blackTheme">
-                <span>
-                  <i class="fa-solid fa-check"></i>
-                </span>
-              </label>
-            </div>
-
-            <div>
-              <input
-                type="radio"
-                id="greenTheme"
-                name="theme-color"
-                value="green-theme"
-              />
-              <label for="greenTheme">
-                <span>
-                  <i class="fa-solid fa-check"></i>
-                </span>
-              </label>
-            </div>
-
-            <div>
-              <input
-                type="radio"
-                id="whiteTheme"
-                name="theme-color"
-                value="white-theme"
-              />
-              <label for="whiteTheme">
-                <span>
-                  <i class="fa-solid fa-check"></i>
-                </span>
-              </label>
-            </div>
-          </div>
-        </fieldset>
       </header>
       <main>
         <div class="board" id="board">
