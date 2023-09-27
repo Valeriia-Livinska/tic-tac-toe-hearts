@@ -513,13 +513,13 @@ input[type="radio"]:checked + label span .fa-check {
 .cell.heart::before,
 .board.heart .cell:not(.x):not(.heart):hover::before {
   transform: rotate(45deg);
-  transform-origin: 35px 45px;
+  transform-origin: 50px 75px;
 }
 
 .cell.heart::after,
 .board.heart .cell:not(.x):not(.heart):hover::after {
   transform: rotate(-45deg);
-  transform-origin: 10px 44px;
+  transform-origin: 23px 63px;
 }
 
 .undo-button {
