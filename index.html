@@ -24,6 +24,13 @@
   <body data-theme="default-theme">
     <div class="container">
       <header class="header">
+        <div class="set-select-position">
+          <div class="set-select-wrapper" size="5">
+            <select name="set-select" id="setSelect" class="set-select">
+              <option selected disabled>Select a set</option>
+            </select>
+          </div>
+        </div>
         <div class="hamburger-menu">
           <span class="bar"></span>
           <span class="bar"></span>
@@ -208,14 +215,6 @@
         <button type="button" id="undoBtn" class="undo-button">
           <i class="fa-solid fa-arrow-rotate-left fa-2xl"></i>
         </button>
-
-        <div class="set-select-position">
-          <div class="set-select-wrapper" size="5">
-            <select name="set-select" id="setSelect" class="set-select">
-              <option selected disabled>Select a set</option>
-            </select>
-          </div>
-        </div>
         <div class="winning-message" id="winningMessage">
           <div class="winning-message-text" data-winning-message-text></div>
           <button id="restartButton">Restart</button>

@@ -2,7 +2,7 @@
   --border-color: dimgray;
   --winning-message-color: black;
 
-  --cell-size: 100px;
+  --cell-size: 150px;
   --mark-size: calc(var(--cell-size) * 0.9);
   --transition-duration: 250ms;
   --cubic-bezier: cubic-bezier(0.4, 0, 0.2, 1);
@@ -74,8 +74,57 @@ fieldset {
 .header {
   display: flex;
   align-items: flex-end;
-  justify-content: flex-end;
+  justify-content: space-between;
   min-height: 70px;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.set-select-position {
+  transition: opacity var(--transition-duration) var(--cubic-bezier);
+}
+
+.set-select-position .set-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  flex: 1;
+  padding: 0 0.5em;
+  outline: 0;
+  color: var(--secondary-background-accent-color);
+  cursor: pointer;
+  border: 2px solid var(--primary-background-accent-color);
+  background: var(--primary-background-color);
+  box-shadow: none;
+}
+.set-select::-ms-expand {
+  display: none;
+}
+.set-select-wrapper {
+  position: relative;
+  display: flex;
+  width: 15em;
+  height: 2.5em;
+  line-height: 3;
+  border-radius: 0.25em;
+  overflow: hidden;
+}
+.set-select-wrapper::after {
+  content: "\25BC";
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1em;
+  pointer-events: none;
+  color: var(--secondary-background-accent-color);
+  cursor: pointer;
+  transition: all var(--transition-duration) var(--cubic-bezier);
+}
+.set-select-wrapper:hover::after {
+  color: var(--main-text-color);
 }
 
 .hamburger-menu {
@@ -471,53 +520,6 @@ input[type="radio"]:checked + label span .fa-check {
 .board.heart .cell:not(.x):not(.heart):hover::after {
   transform: rotate(-45deg);
   transform-origin: 10px 44px;
-}
-
-.set-select-position {
-  position: absolute;
-  top: 15%;
-  left: 30px;
-}
-
-.set-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  appearance: none;
-  flex: 1;
-  padding: 0 0.5em;
-  outline: 0;
-  color: var(--secondary-background-accent-color);
-  cursor: pointer;
-  border: 2px solid var(--primary-background-accent-color);
-  background: var(--primary-background-color);
-  box-shadow: none;
-}
-.set-select::-ms-expand {
-  display: none;
-}
-.set-select-wrapper {
-  position: relative;
-  display: flex;
-  width: 15em;
-  height: 2.5em;
-  line-height: 3;
-  border-radius: 0.25em;
-  overflow: hidden;
-}
-.set-select-wrapper::after {
-  content: "\25BC";
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 0 1em;
-  pointer-events: none;
-  color: var(--secondary-background-accent-color);
-  cursor: pointer;
-  transition: all var(--transition-duration) var(--cubic-bezier);
-}
-.set-select-wrapper:hover::after {
-  color: var(--main-text-color);
 }
 
 .undo-button {

@@ -135,7 +135,7 @@ async function setCreate(event) {
     text: "New set was created",
     duration: 3000,
     gravity: "top",
-    position: "right",
+    position: "left",
     stopOnFocus: true,
     style: {
       background: "linear-gradient(to right, #00b09b, #96c93d)",
