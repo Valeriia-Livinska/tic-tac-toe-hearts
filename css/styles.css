@@ -512,24 +512,48 @@ input[type="radio"]:checked + label span .fa-check {
   cursor: not-allowed;
 }
 
-.cell.x::before,
+/* .cell.x::before,
 .cell.x::after {
   background-color: var(--primary-accent-color);
+} */
+
+.cell.x::before {
+  color: var(--primary-accent-color);
 }
 
-.cell.heart::before,
+/* .cell.heart::before,
 .cell.heart::after {
   background-color: var(--secondary-accent-color);
+} */
+
+.cell.heart::before {
+  color: var(--secondary-accent-color);
 }
 
-.board.x .cell:not(.x):not(.heart):hover::before,
+/* .board.x .cell:not(.x):not(.heart):hover::before,
 .board.x .cell:not(.x):not(.heart):hover::after,
 .board.heart .cell:not(.x):not(.heart):hover::before,
 .board.heart .cell:not(.x):not(.heart):hover::after {
   background-color: var(--secondary-background-color);
+} */
+
+.board.x .cell:not(.x):not(.heart):hover::before,
+.board.heart .cell:not(.x):not(.heart):hover::before {
+  color: var(--secondary-background-color);
 }
 
-.cell.x::before,
+/* .cell.x::before,
+.board.x .cell:not(.x):not(.heart):hover::before {
+  content: attr(data-content);
+  font: var(--fa-font-solid);
+  font-size: 136px;
+  position: absolute;
+  z-index: -1;
+  width: var(--mark-size);
+  height: var(--mark-size);
+} */
+
+/* .cell.x::before,
 .cell.x::after,
 .board.x .cell:not(.x):not(.heart):hover::before,
 .board.x .cell:not(.x):not(.heart):hover::after {
@@ -538,9 +562,9 @@ input[type="radio"]:checked + label span .fa-check {
   z-index: -1;
   width: calc(var(--mark-size) * 0.15);
   height: var(--mark-size);
-}
+} */
 
-.cell.x::before,
+/* .cell.x::before,
 .board.x .cell:not(.x):not(.heart):hover::before {
   transform: rotate(45deg);
 }
@@ -548,9 +572,22 @@ input[type="radio"]:checked + label span .fa-check {
 .cell.x::after,
 .board.x .cell:not(.x):not(.heart):hover::after {
   transform: rotate(-45deg);
+} */
+
+.cell.x::before,
+.board.x .cell:not(.x):not(.heart):hover::before,
+.cell.heart::before,
+.board.heart .cell:not(.x):not(.heart):hover::before {
+  content: attr(data-content);
+  position: absolute;
+  z-index: -1;
+  width: var(--mark-size);
+  height: var(--mark-size);
+  font: var(--fa-font-solid);
+  font-size: 136px;
 }
 
-.cell.heart::before,
+/* .cell.heart::before,
 .cell.heart::after,
 .board.heart .cell:not(.x):not(.heart):hover::before,
 .board.heart .cell:not(.x):not(.heart):hover::after {
@@ -572,7 +609,7 @@ input[type="radio"]:checked + label span .fa-check {
 .board.heart .cell:not(.x):not(.heart):hover::after {
   transform: rotate(-45deg);
   transform-origin: 23px 63px;
-}
+} */
 
 .undo-button {
   position: absolute;

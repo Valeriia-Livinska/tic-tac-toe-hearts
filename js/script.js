@@ -42,6 +42,9 @@ let wordsArr;
 let currentCell;
 let newSet = {};
 
+let xIcon;
+let heartIcon;
+
 startGame();
 initThemeSelector();
 fillInSelectOptions();
@@ -58,6 +61,7 @@ function startGame() {
   cellElements.forEach((cell) => {
     cell.classList.remove(X_CLASS);
     cell.classList.remove(HEART_CLASS);
+    cell.setAttribute("data-content", "");
     cell.removeEventListener("click", handleClick);
     cell.addEventListener("click", handleClick, { once: true });
   });
@@ -91,6 +95,49 @@ function initThemeSelector() {
   function onThemeClick(event) {
     activateTheme(event.target.value);
   }
+}
+
+const firstPlayerIcon = document.getElementsByName("first-player-icon");
+const secondPlayerIcon = document.getElementsByName("second-player-icon");
+
+firstPlayerIcon.forEach((firstIconBtn) => {
+  firstIconBtn.addEventListener("click", onXIconChangeClick);
+});
+
+function onXIconChangeClick(event) {
+  xIcon = String.fromCodePoint(parseInt(event.target.value, 16));
+}
+
+secondPlayerIcon.forEach((secondIconBtn) => {
+  secondIconBtn.addEventListener("click", onHeartIconChangeClick);
+});
+
+function onHeartIconChangeClick(event) {
+  heartIcon = String.fromCodePoint(parseInt(event.target.value, 16));
+}
+
+function cellsHover() {
+  cellElements.forEach((cell) => {
+    if (
+      board.classList.contains("x") &&
+      !cell.classList.contains("x") &&
+      !cell.classList.contains("heart")
+    ) {
+      cell.onmouseover = () => {
+        cell.setAttribute("data-content", xIcon);
+      };
+    }
+
+    if (
+      board.classList.contains("heart") &&
+      !cell.classList.contains("x") &&
+      !cell.classList.contains("heart")
+    ) {
+      cell.onmouseover = () => {
+        cell.setAttribute("data-content", heartIcon);
+      };
+    }
+  });
 }
 
 // function loadStorage() {
@@ -245,6 +292,14 @@ function isDraw() {
 
 function placeMark(cell, currentClass) {
   cell.classList.add(currentClass);
+
+  if (currentClass === X_CLASS) {
+    cell.setAttribute("data-content", xIcon);
+  }
+  if (currentClass === HEART_CLASS) {
+    cell.setAttribute("data-content", heartIcon);
+  }
+
   undoBtn.disabled = false;
   currentCell = cell;
 }
@@ -259,8 +314,10 @@ function setBoardHoverClass() {
 
   if (heartTurn) {
     board.classList.add(HEART_CLASS);
+    cellsHover();
   } else {
     board.classList.add(X_CLASS);
+    cellsHover();
   }
 }
 
