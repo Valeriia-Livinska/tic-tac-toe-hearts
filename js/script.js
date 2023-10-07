@@ -25,6 +25,9 @@ const clearBtn = document.getElementById("clearButton");
 
 const sliderEl = document.getElementById("fontSizeControl");
 
+const firstPlayerIcons = document.getElementsByName("first-player-icon");
+const secondPlayerIcons = document.getElementsByName("second-player-icon");
+
 const cellElements = document.querySelectorAll("[data-cell]");
 const board = document.getElementById("board");
 const undoBtn = document.getElementById("undoBtn");
@@ -45,6 +48,8 @@ let newSet = {};
 let xIcon;
 let heartIcon;
 
+let executedOnce;
+
 startGame();
 initThemeSelector();
 fillInSelectOptions();
@@ -58,6 +63,8 @@ sliderEl.addEventListener("input", handleFontSizeControl);
 function startGame() {
   heartTurn = false;
   undoBtn.disabled = true;
+  executedOnce = false;
+  allowPlayerIconChange();
   cellElements.forEach((cell) => {
     cell.classList.remove(X_CLASS);
     cell.classList.remove(HEART_CLASS);
@@ -97,10 +104,7 @@ function initThemeSelector() {
   }
 }
 
-const firstPlayerIcon = document.getElementsByName("first-player-icon");
-const secondPlayerIcon = document.getElementsByName("second-player-icon");
-
-firstPlayerIcon.forEach((firstIconBtn) => {
+firstPlayerIcons.forEach((firstIconBtn) => {
   firstIconBtn.addEventListener("click", onXIconChangeClick);
 });
 
@@ -108,7 +112,7 @@ function onXIconChangeClick(event) {
   xIcon = String.fromCodePoint(parseInt(event.target.value, 16));
 }
 
-secondPlayerIcon.forEach((secondIconBtn) => {
+secondPlayerIcons.forEach((secondIconBtn) => {
   secondIconBtn.addEventListener("click", onHeartIconChangeClick);
 });
 
@@ -257,6 +261,7 @@ function handleClear() {
 }
 
 function handleClick(event) {
+  disablePlayerIconChange();
   const cell = event.target;
   const currentClass = heartTurn ? HEART_CLASS : X_CLASS;
   placeMark(cell, currentClass);
@@ -302,6 +307,28 @@ function placeMark(cell, currentClass) {
 
   undoBtn.disabled = false;
   currentCell = cell;
+}
+
+function disablePlayerIconChange() {
+  // has to be done only once after first placing the icon
+  if (!executedOnce) {
+    executedOnce = true;
+    firstPlayerIcons.forEach((firstIconBtn) => {
+      firstIconBtn.disabled = true;
+    });
+    secondPlayerIcons.forEach((secondIconBtn) => {
+      secondIconBtn.disabled = true;
+    });
+  }
+}
+
+function allowPlayerIconChange() {
+  firstPlayerIcons.forEach((firstIconBtn) => {
+    firstIconBtn.disabled = false;
+  });
+  secondPlayerIcons.forEach((secondIconBtn) => {
+    secondIconBtn.disabled = false;
+  });
 }
 
 function swapTurns() {
