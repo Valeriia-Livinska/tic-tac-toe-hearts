@@ -276,7 +276,7 @@ function endGame(draw) {
     winningMessageTextElement.textContent = "Draw!";
   } else {
     winningMessageTextElement.textContent = `${
-      heartTurn ? "❤'s" : "X's"
+      heartTurn ? heartIcon : xIcon
     } Wins!`;
   }
   winningMessageElement.classList.add("show");

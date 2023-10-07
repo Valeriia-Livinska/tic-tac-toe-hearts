@@ -579,12 +579,12 @@ input[type="radio"]:checked + label span .fa-check {
 .cell.heart::before,
 .board.heart .cell:not(.x):not(.heart):hover::before {
   content: attr(data-content);
-  position: absolute;
   z-index: -1;
+  position: absolute;
   width: var(--mark-size);
   height: var(--mark-size);
   font: var(--fa-font-solid);
-  font-size: 136px;
+  font-size: 125px;
 }
 
 /* .cell.heart::before,
@@ -652,9 +652,14 @@ input[type="radio"]:checked + label span .fa-check {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-size: 5rem;
+  font-size: 4rem;
   color: var(--primary-background-accent-color);
   background-color: rgba(0, 0, 0, 0.7);
+}
+
+.winning-message-text {
+  margin-bottom: 15px;
+  font: var(--fa-font-solid);
 }
 
 .winning-message button {
