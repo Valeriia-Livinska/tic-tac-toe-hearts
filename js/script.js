@@ -4,7 +4,8 @@ import "toastify-js/src/toastify.css";
 
 const X_CLASS = "x";
 const HEART_CLASS = "heart";
-const STORAGE_KEY = "saved-words";
+const STORAGE_KEY = "saved-sets";
+const THEME_KEY = "theme-settings";
 axios.defaults.baseURL = "https://63ab93b5fdc006ba6060fe38.mockapi.io";
 
 const WINNING_COMBINATIONS = [
@@ -18,6 +19,9 @@ const WINNING_COMBINATIONS = [
   [2, 4, 6],
 ];
 
+// DOM elements
+const body = document.querySelector("body");
+
 const form = document.getElementById("inputForm");
 const setsName = document.getElementById("setsName");
 const inputElements = document.querySelectorAll("[data-cell-value]");
@@ -27,6 +31,8 @@ const sliderEl = document.getElementById("fontSizeControl");
 
 const firstPlayerIcons = document.getElementsByName("first-player-icon");
 const secondPlayerIcons = document.getElementsByName("second-player-icon");
+
+const themeRadioBtns = document.getElementsByName("theme-color");
 
 const cellElements = document.querySelectorAll("[data-cell]");
 const board = document.getElementById("board");
@@ -39,26 +45,35 @@ const winningMessageTextElement = document.querySelector(
 );
 const restartBtn = document.getElementById("restartButton");
 
-// let themeSettings;
+let savedSets;
+let newSet = {};
+let themeSettings;
 let heartTurn;
 let wordsArr;
 let currentCell;
-let newSet = {};
 
-let xIcon;
-let heartIcon;
+let xIcon = convertValueToUnicode("58");
+let heartIcon = convertValueToUnicode("f004");
 
+// to disable player icon selection after the game started (first mark placing)
 let executedOnce;
 
 startGame();
 initThemeSelector();
 fillInSelectOptions();
 
-restartBtn.addEventListener("click", startGame);
+// event listeners
 form.addEventListener("submit", setCreate);
 clearBtn.addEventListener("click", handleClear);
-undoBtn.addEventListener("click", handleUndo);
 sliderEl.addEventListener("input", handleFontSizeControl);
+firstPlayerIcons.forEach((firstIconBtn) => {
+  firstIconBtn.addEventListener("click", onXIconChangeClick);
+});
+secondPlayerIcons.forEach((secondIconBtn) => {
+  secondIconBtn.addEventListener("click", onHeartIconChangeClick);
+});
+undoBtn.addEventListener("click", handleUndo);
+restartBtn.addEventListener("click", startGame);
 
 function startGame() {
   heartTurn = false;
@@ -75,49 +90,39 @@ function startGame() {
   setBoardHoverClass();
   winningMessageElement.classList.remove("show");
 
-  // const isStorage = loadStorage();
+  savedSets = loadSetsFromLocalStorage();
 
-  // if (isStorage && isStorage.length !== 0) {
-  //   wordsArr = loadStorage();
-  //   fillInputs(wordsArr);
-  //   fillCells(wordsArr);
-  // } else {
-  //   wordsArr = [];
-  // }
+  if (savedSets && savedSets.length !== 0) {
+    // savedSets = loadStorage();
+    // fillInputs(wordsArr);
+    // fillCells(wordsArr);
+    fillInSelectOptions();
+  } else {
+    savedSets = [];
+  }
 }
 
 function initThemeSelector() {
-  const themeRadioBtns = document.getElementsByName("theme-color");
-  const body = document.querySelector("body");
-
   themeRadioBtns.forEach((themeBtn) => {
-    themeBtn.removeEventListener("click", onThemeClick);
+    // themeBtn.removeEventListener("click", onThemeClick);
     themeBtn.addEventListener("click", onThemeClick);
   });
 
-  function activateTheme(themeName) {
-    body.setAttribute("data-theme", themeName);
-  }
-
   function onThemeClick(event) {
-    activateTheme(event.target.value);
+    body.setAttribute("data-theme", event.target.value);
   }
 }
-
-firstPlayerIcons.forEach((firstIconBtn) => {
-  firstIconBtn.addEventListener("click", onXIconChangeClick);
-});
 
 function onXIconChangeClick(event) {
-  xIcon = String.fromCodePoint(parseInt(event.target.value, 16));
+  xIcon = convertValueToUnicode(event.target.value);
 }
 
-secondPlayerIcons.forEach((secondIconBtn) => {
-  secondIconBtn.addEventListener("click", onHeartIconChangeClick);
-});
-
 function onHeartIconChangeClick(event) {
-  heartIcon = String.fromCodePoint(parseInt(event.target.value, 16));
+  heartIcon = convertValueToUnicode(event.target.value);
+}
+
+function convertValueToUnicode(value) {
+  return String.fromCodePoint(parseInt(value, 16));
 }
 
 function cellsHover() {
@@ -144,23 +149,23 @@ function cellsHover() {
   });
 }
 
-// function loadStorage() {
-//   try {
-//     const serializedState = localStorage.getItem(STORAGE_KEY);
-//     return serializedState === null ? undefined : JSON.parse(serializedState);
-//   } catch (error) {
-//     console.error("Get state error: ", error.message);
-//   }
-// }
+function loadSetsFromLocalStorage() {
+  try {
+    const serializedState = localStorage.getItem(STORAGE_KEY);
+    return serializedState === null ? undefined : JSON.parse(serializedState);
+  } catch (error) {
+    console.error("Get state error: ", error.message);
+  }
+}
 
-// function saveStorage(value) {
-//   try {
-//     const serializedState = JSON.stringify(value);
-//     localStorage.setItem(STORAGE_KEY, serializedState);
-//   } catch (error) {
-//     console.error("Set state error: ", error.message);
-//   }
-// }
+function saveSetToLocalStorage(value) {
+  try {
+    const serializedState = JSON.stringify(value);
+    localStorage.setItem(STORAGE_KEY, serializedState);
+  } catch (error) {
+    console.error("Set state error: ", error.message);
+  }
+}
 
 // function fillInputs(arr) {
 //   inputElements.forEach((input, index) => {
@@ -168,7 +173,7 @@ function cellsHover() {
 //   });
 // }
 
-async function setCreate(event) {
+function setCreate(event) {
   event.preventDefault();
   wordsArr = [];
 
@@ -180,11 +185,12 @@ async function setCreate(event) {
     setName: setsName.value.toLowerCase().trim(),
     setWords: wordsArr,
   };
+  savedSets.push(newSet);
 
   form.reset();
   Toastify({
     text: "New set was created",
-    duration: 3000,
+    duration: 1300,
     gravity: "top",
     position: "left",
     stopOnFocus: true,
@@ -193,32 +199,31 @@ async function setCreate(event) {
     },
   }).showToast();
 
-  await addSet(newSet);
+  saveSetToLocalStorage(savedSets);
+  // await addSet(newSet);
   fillInSelectOptions();
 }
 
-async function addSet(newSet) {
-  try {
-    await axios.post("/sets", newSet);
-  } catch (error) {
-    console.log(error);
-  }
-}
+// async function addSet(newSet) {
+//   try {
+//     await axios.post("/sets", newSet);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
-async function getAllSets() {
-  try {
-    const response = await axios.get("/sets");
-    const { data } = response;
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-}
+// async function getAllSets() {
+//   try {
+//     const response = await axios.get("/sets");
+//     const { data } = response;
+//     return data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
-async function fillInSelectOptions() {
-  const allSets = await getAllSets();
-
-  const optionsArr = allSets.map(
+function fillInSelectOptions() {
+  const optionsArr = savedSets.map(
     (set) => `<option value=${set.setName}>${set.setName}</option>`
   );
 
@@ -227,7 +232,7 @@ async function fillInSelectOptions() {
   setSelect.innerHTML = options;
 
   setSelect.onchange = function (event) {
-    const choosenSet = allSets.find((set) => {
+    const choosenSet = savedSets.find((set) => {
       return set.setName === event.target.value;
     });
     fillCells(choosenSet.setWords);

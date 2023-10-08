@@ -47,19 +47,23 @@
               <div>
                 <div class="set-name-wrapper">
                   <p>Create new set</p>
-                  <fieldset class="sets-name">
+                  <fieldset class="sets-name tooltip">
                     <input
                       type="text"
                       data-sets-name
                       id="setsName"
                       name="sets-name"
+                      pattern="\S+"
                       required
                     />
                     <label
                       for="sets-name"
                       id="sets-name"
                       class="sets-name-label"
-                      >Set's name</label
+                      >Set's name (single-word)</label
+                    >
+                    <span class="tooltiptext"
+                      >Do not use whitespace character</span
                     >
                   </fieldset>
                 </div>
@@ -392,7 +396,6 @@
                     </span>
                   </label>
                 </div>
-
               </div>
             </fieldset>
           </div>
