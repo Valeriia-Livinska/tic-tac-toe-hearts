@@ -22,6 +22,12 @@ const WINNING_COMBINATIONS = [
 // DOM elements
 const body = document.querySelector("body");
 
+// for list of sets
+const selectBtn = document.getElementById("selectBtn");
+const selectItems = document.querySelectorAll(".select-item-text");
+const deleteSetBtn = document.querySelectorAll(".delete-btn");
+//
+
 const form = document.getElementById("inputForm");
 const setsName = document.getElementById("setsName");
 const inputElements = document.querySelectorAll("[data-cell-value]");
@@ -60,7 +66,7 @@ let executedOnce;
 
 startGame();
 initThemeSelector();
-fillInSelectOptions();
+// fillInSelectOptions();
 
 // event listeners
 form.addEventListener("submit", setCreate);
@@ -96,11 +102,28 @@ function startGame() {
     // savedSets = loadStorage();
     // fillInputs(wordsArr);
     // fillCells(wordsArr);
-    fillInSelectOptions();
+    // fillInSelectOptions();
   } else {
     savedSets = [];
   }
 }
+
+// for list of sets
+selectBtn.addEventListener("click", () => {
+  selectBtn.classList.toggle("open");
+});
+
+selectItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    console.log("choosen");
+  });
+});
+
+deleteSetBtn.forEach((delBtn) => {
+  delBtn.addEventListener("click", () => {
+    console.log("delete");
+  });
+});
 
 function initThemeSelector() {
   themeRadioBtns.forEach((themeBtn) => {
@@ -201,7 +224,7 @@ function setCreate(event) {
 
   saveSetToLocalStorage(savedSets);
   // await addSet(newSet);
-  fillInSelectOptions();
+  // fillInSelectOptions();
 }
 
 // async function addSet(newSet) {
@@ -222,22 +245,22 @@ function setCreate(event) {
 //   }
 // }
 
-function fillInSelectOptions() {
-  const optionsArr = savedSets.map(
-    (set) => `<option value=${set.setName}>${set.setName}</option>`
-  );
+// function fillInSelectOptions() {
+//   const optionsArr = savedSets.map(
+//     (set) => `<option value=${set.setName}>${set.setName}</option>`
+//   );
 
-  optionsArr.unshift(`<option selected disabled>Select a set</option>`);
-  const options = optionsArr.join("\n");
-  setSelect.innerHTML = options;
+//   optionsArr.unshift(`<option selected disabled>Select a set</option>`);
+//   const options = optionsArr.join("\n");
+//   setSelect.innerHTML = options;
 
-  setSelect.onchange = function (event) {
-    const choosenSet = savedSets.find((set) => {
-      return set.setName === event.target.value;
-    });
-    fillCells(choosenSet.setWords);
-  };
-}
+//   setSelect.onchange = function (event) {
+//     const choosenSet = savedSets.find((set) => {
+//       return set.setName === event.target.value;
+//     });
+//     fillCells(choosenSet.setWords);
+//   };
+// }
 
 function fillCells(arr) {
   cellElements.forEach((cell, index) => {
