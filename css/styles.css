@@ -99,6 +99,18 @@ ul {
   overflow: hidden;
 }
 
+.scroll-hidden {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  touch-action: none;
+  -ms-touch-action: none;
+}
+
+.set-select-position {
+  transition: opacity var(--transition-duration) var(--cubic-bezier);
+}
+
 .select-container {
   position: relative;
   width: 240px;
@@ -178,58 +190,13 @@ ul {
 }
 
 .select-item .delete-btn {
-  display: inline-block;
-  padding: 0 4px;
+  border: none;
+  background-color: transparent;
   transition: all var(--transition-duration) var(--cubic-bezier);
 }
 
 .select-item .delete-btn:hover {
-  color: var(--main-text-color);
-}
-
-.set-select-position {
-  transition: opacity var(--transition-duration) var(--cubic-bezier);
-}
-
-.set-select-position .set-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  appearance: none;
-  flex: 1;
-  padding: 0 0.5em;
-  outline: 0;
-  color: var(--secondary-background-accent-color);
-  cursor: pointer;
-  border: 2px solid var(--primary-background-accent-color);
-  background: var(--primary-background-color);
-  box-shadow: none;
-}
-.set-select::-ms-expand {
-  display: none;
-}
-.set-select-wrapper {
-  position: relative;
-  display: flex;
-  width: 15em;
-  height: 2.5em;
-  line-height: 3;
-  border-radius: 0.25em;
-  overflow: hidden;
-}
-.set-select-wrapper::after {
-  content: "\25BC";
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 0 1em;
-  pointer-events: none;
-  color: var(--secondary-background-accent-color);
-  cursor: pointer;
-  transition: all var(--transition-duration) var(--cubic-bezier);
-}
-.set-select-wrapper:hover::after {
-  color: var(--main-text-color);
+  color: var(--secondary-accent-color);
 }
 
 .hamburger-menu {
@@ -295,14 +262,6 @@ ul {
 .settings-wrapper.active {
   left: 0;
   opacity: 1;
-}
-
-.scroll-hidden {
-  position: relative;
-  overflow: hidden;
-  height: 100vh;
-  touch-action: none;
-  -ms-touch-action: none;
 }
 
 .input-form {

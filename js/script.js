@@ -1,4 +1,3 @@
-import axios from "axios";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 
@@ -6,7 +5,6 @@ const X_CLASS = "x";
 const HEART_CLASS = "heart";
 const STORAGE_KEY = "saved-sets";
 const THEME_KEY = "theme-settings";
-axios.defaults.baseURL = "https://63ab93b5fdc006ba6060fe38.mockapi.io";
 
 const WINNING_COMBINATIONS = [
   [0, 1, 2],
@@ -24,8 +22,8 @@ const body = document.querySelector("body");
 
 // for list of sets
 const selectBtn = document.getElementById("selectBtn");
-const selectItems = document.querySelectorAll(".select-item-text");
-const deleteSetBtn = document.querySelectorAll(".delete-btn");
+const selectTextContent = document.querySelector(".select-text");
+const selectList = document.querySelector(".select-list");
 //
 
 const form = document.getElementById("inputForm");
@@ -43,7 +41,6 @@ const themeRadioBtns = document.getElementsByName("theme-color");
 const cellElements = document.querySelectorAll("[data-cell]");
 const board = document.getElementById("board");
 const undoBtn = document.getElementById("undoBtn");
-const setSelect = document.getElementById("setSelect");
 
 const winningMessageElement = document.getElementById("winningMessage");
 const winningMessageTextElement = document.querySelector(
@@ -66,11 +63,11 @@ let executedOnce;
 
 startGame();
 initThemeSelector();
-// fillInSelectOptions();
 
 // event listeners
+selectBtn.addEventListener("click", onSelectBtnClick);
 form.addEventListener("submit", setCreate);
-clearBtn.addEventListener("click", handleClear);
+clearBtn.addEventListener("click", handleFormClear);
 sliderEl.addEventListener("input", handleFontSizeControl);
 firstPlayerIcons.forEach((firstIconBtn) => {
   firstIconBtn.addEventListener("click", onXIconChangeClick);
@@ -99,35 +96,14 @@ function startGame() {
   savedSets = loadSetsFromLocalStorage();
 
   if (savedSets && savedSets.length !== 0) {
-    // savedSets = loadStorage();
-    // fillInputs(wordsArr);
-    // fillCells(wordsArr);
-    // fillInSelectOptions();
+    fillInSelectOptions();
   } else {
     savedSets = [];
   }
 }
 
-// for list of sets
-selectBtn.addEventListener("click", () => {
-  selectBtn.classList.toggle("open");
-});
-
-selectItems.forEach((item) => {
-  item.addEventListener("click", () => {
-    console.log("choosen");
-  });
-});
-
-deleteSetBtn.forEach((delBtn) => {
-  delBtn.addEventListener("click", () => {
-    console.log("delete");
-  });
-});
-
 function initThemeSelector() {
   themeRadioBtns.forEach((themeBtn) => {
-    // themeBtn.removeEventListener("click", onThemeClick);
     themeBtn.addEventListener("click", onThemeClick);
   });
 
@@ -190,14 +166,23 @@ function saveSetToLocalStorage(value) {
   }
 }
 
-// function fillInputs(arr) {
-//   inputElements.forEach((input, index) => {
-//     input.value = arr[index];
-//   });
-// }
-
 function setCreate(event) {
   event.preventDefault();
+  if (savedSets.length === 15) {
+    Toastify({
+      text: "Sorry, but you are not allowed to create more than 15 sets",
+      duration: 2500,
+      gravity: "top",
+      position: "left",
+      stopOnFocus: true,
+      style: {
+        background: "linear-gradient(to right, #EE0022, #e74c3c)",
+      },
+    }).showToast();
+    handleFormClear();
+    return;
+  }
+
   wordsArr = [];
 
   inputElements.forEach((input) => {
@@ -223,44 +208,59 @@ function setCreate(event) {
   }).showToast();
 
   saveSetToLocalStorage(savedSets);
-  // await addSet(newSet);
-  // fillInSelectOptions();
+  fillInSelectOptions();
 }
 
-// async function addSet(newSet) {
-//   try {
-//     await axios.post("/sets", newSet);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
+function onSelectBtnClick() {
+  selectBtn.classList.toggle("open");
+}
 
-// async function getAllSets() {
-//   try {
-//     const response = await axios.get("/sets");
-//     const { data } = response;
-//     return data;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
+function fillInSelectOptions() {
+  const optionsArr = savedSets.map(
+    (set) => `<li class="select-item" value=${set.setName}>
+                <span class="select-item-text">${set.setName}</span>
+                <button class="delete-btn" data-delbtn = ${set.setName}>
+                  <i class="fa-regular fa-trash-can"></i>
+                </button>
+              </li>`
+  );
 
-// function fillInSelectOptions() {
-//   const optionsArr = savedSets.map(
-//     (set) => `<option value=${set.setName}>${set.setName}</option>`
-//   );
+  const options = optionsArr.join("\n");
+  selectList.innerHTML = options;
 
-//   optionsArr.unshift(`<option selected disabled>Select a set</option>`);
-//   const options = optionsArr.join("\n");
-//   setSelect.innerHTML = options;
+  const selectItemsText = document.querySelectorAll(".select-item-text");
+  const deleteSetBtns = document.querySelectorAll(".delete-btn");
 
-//   setSelect.onchange = function (event) {
-//     const choosenSet = savedSets.find((set) => {
-//       return set.setName === event.target.value;
-//     });
-//     fillCells(choosenSet.setWords);
-//   };
-// }
+  selectItemsText.forEach((item) => {
+    item.addEventListener("click", onChooseSetCLick);
+  });
+
+  deleteSetBtns.forEach((delBtn) => {
+    delBtn.addEventListener("click", onDeleteBtnClick);
+  });
+}
+
+function onChooseSetCLick(event) {
+  const choosenSet = savedSets.find((set) => {
+    return set.setName === event.target.textContent;
+  });
+  fillCells(choosenSet.setWords);
+  // set select value as choosen
+  selectTextContent.textContent = choosenSet.setName;
+  // close select list
+  selectBtn.classList.remove("open");
+}
+
+function onDeleteBtnClick(event) {
+  const setToRemove = event.currentTarget.getAttribute("data-delbtn");
+  const savedSetsWithoutDel = savedSets.filter((set) => {
+    return set.setName !== setToRemove;
+  });
+  savedSets = [...savedSetsWithoutDel];
+  saveSetToLocalStorage(savedSets);
+  fillInSelectOptions();
+  handleCellsClear();
+}
 
 function fillCells(arr) {
   cellElements.forEach((cell, index) => {
@@ -269,23 +269,14 @@ function fillCells(arr) {
   });
 }
 
-// function handleDoneBtnClick(event) {
-//   event.preventDefault();
-//   wordsArr = [];
-//   inputElements.forEach((input) => {
-//     wordsArr.push(input.value);
-//   });
-//   fillCells(wordsArr);
-//   saveStorage(wordsArr);
-// }
-
-function handleClear() {
+function handleFormClear() {
   form.reset();
-  // cellElements.forEach((cell) => {
-  //   cell.textContent = "";
-  // });
-  // wordsArr = [];
-  // saveStorage(wordsArr);
+}
+
+function handleCellsClear() {
+  cellElements.forEach((cell) => {
+    cell.textContent = "";
+  });
 }
 
 function handleClick(event) {
