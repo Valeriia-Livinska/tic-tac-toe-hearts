@@ -22,8 +22,8 @@
     <title>Tic Tac Toe</title>
   </head>
   <body data-theme="default-theme">
-    <div class="container">
-      <header class="header">
+    <header>
+      <div class="container header">
         <div class="set-select-position">
           <div class="select-container">
             <div class="select-btn" id="selectBtn">
@@ -33,6 +33,17 @@
               </span>
             </div>
             <ul class="select-list"></ul>
+            <div class="confirmation-wrapper">
+              <p class="confirmation-text">Are you sure?</p>
+              <div class="btns-wrapper">
+                <button class="btn confirmation-btn" id="confirmDel">
+                  delete
+                </button>
+                <button class="btn confirmation-btn cancel" id="confirmCancel">
+                  cancel
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         <div class="hamburger-menu">
@@ -60,10 +71,7 @@
                       pattern="\S+"
                       required
                     />
-                    <label
-                      for="sets-name"
-                      id="sets-name"
-                      class="sets-name-label"
+                    <label for="setsName" id="sets-name" class="sets-name-label"
                       >Set's name (single-word)</label
                     >
                     <span class="tooltiptext"
@@ -128,8 +136,8 @@
                   />
                 </fieldset>
               </div>
-              <button type="submit">create</button>
-              <button type="button" id="clearButton">clear</button>
+              <button type="submit" class="btn">create</button>
+              <button type="button" id="clearButton" class="btn">clear</button>
             </form>
 
             <div class="font-control-wrapper">
@@ -404,8 +412,10 @@
             </fieldset>
           </div>
         </div>
-      </header>
-      <main>
+      </div>
+    </header>
+    <main>
+      <div class="container">
         <div class="board" id="board">
           <div class="cell" data-cell id="0"></div>
           <div class="cell" data-cell id="1"></div>
@@ -424,8 +434,8 @@
           <div class="winning-message-text" data-winning-message-text></div>
           <button id="restartButton">Restart</button>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
     <script type="module" src="/js/header-modal.js"></script>
   </body>
 </html>

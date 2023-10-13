@@ -24,6 +24,9 @@ const body = document.querySelector("body");
 const selectBtn = document.getElementById("selectBtn");
 const selectTextContent = document.querySelector(".select-text");
 const selectList = document.querySelector(".select-list");
+const confirmation = document.querySelector(".confirmation-wrapper");
+const confirmDel = document.getElementById("confirmDel");
+const confirmCancel = document.getElementById("confirmCancel");
 //
 
 const form = document.getElementById("inputForm");
@@ -54,6 +57,7 @@ let themeSettings;
 let heartTurn;
 let wordsArr;
 let currentCell;
+let currentDelBtn;
 
 let xIcon = convertValueToUnicode("58");
 let heartIcon = convertValueToUnicode("f004");
@@ -66,6 +70,8 @@ initThemeSelector();
 
 // event listeners
 selectBtn.addEventListener("click", onSelectBtnClick);
+confirmDel.addEventListener("click", handleConfirmDel);
+confirmCancel.addEventListener("click", handleConfirmCancel);
 form.addEventListener("submit", setCreate);
 clearBtn.addEventListener("click", handleFormClear);
 sliderEl.addEventListener("input", handleFontSizeControl);
@@ -93,13 +99,16 @@ function startGame() {
   setBoardHoverClass();
   winningMessageElement.classList.remove("show");
 
-  savedSets = loadSetsFromLocalStorage();
-
+  // download from localStorage
+  savedSets = loadFromLocalStorage(STORAGE_KEY);
   if (savedSets && savedSets.length !== 0) {
     fillInSelectOptions();
   } else {
     savedSets = [];
   }
+
+  // check if was previous theme settings and implement
+  loadThemeSettings();
 }
 
 function initThemeSelector() {
@@ -109,9 +118,34 @@ function initThemeSelector() {
 
   function onThemeClick(event) {
     body.setAttribute("data-theme", event.target.value);
+    themeSettings.theme = event.target.value;
+    saveToLocalStorage(themeSettings, THEME_KEY);
   }
 }
 
+function loadThemeSettings() {
+  themeSettings = loadFromLocalStorage(THEME_KEY);
+  if (themeSettings) {
+    if (themeSettings.fontSize) {
+      sliderEl.value = themeSettings.fontSize;
+    }
+    if (themeSettings.theme) {
+      body.setAttribute("data-theme", themeSettings.theme);
+      // mark theme icon as checked
+      const choosenThemeEl = document.querySelector(
+        `input[value="${themeSettings.theme}"]`
+      );
+      choosenThemeEl.checked = true;
+    }
+  } else {
+    themeSettings = {
+      fontSize: "",
+      theme: "",
+    };
+  }
+}
+
+// changing icons in settings
 function onXIconChangeClick(event) {
   xIcon = convertValueToUnicode(event.target.value);
 }
@@ -148,19 +182,19 @@ function cellsHover() {
   });
 }
 
-function loadSetsFromLocalStorage() {
+function loadFromLocalStorage(key) {
   try {
-    const serializedState = localStorage.getItem(STORAGE_KEY);
+    const serializedState = localStorage.getItem(key);
     return serializedState === null ? undefined : JSON.parse(serializedState);
   } catch (error) {
     console.error("Get state error: ", error.message);
   }
 }
 
-function saveSetToLocalStorage(value) {
+function saveToLocalStorage(value, key) {
   try {
     const serializedState = JSON.stringify(value);
-    localStorage.setItem(STORAGE_KEY, serializedState);
+    localStorage.setItem(key, serializedState);
   } catch (error) {
     console.error("Set state error: ", error.message);
   }
@@ -207,7 +241,7 @@ function setCreate(event) {
     },
   }).showToast();
 
-  saveSetToLocalStorage(savedSets);
+  saveToLocalStorage(savedSets, STORAGE_KEY);
   fillInSelectOptions();
 }
 
@@ -252,20 +286,43 @@ function onChooseSetCLick(event) {
 }
 
 function onDeleteBtnClick(event) {
-  const setToRemove = event.currentTarget.getAttribute("data-delbtn");
+  // show confirmation
+  body.classList.add("blocked");
+  const x = event.clientX * 1.05;
+  const y = event.clientY * 0.55;
+
+  confirmation.style.left = x + "px";
+  confirmation.style.top = y + "px";
+  confirmation.classList.add("show");
+  //
+
+  currentDelBtn = event.currentTarget;
+}
+
+function handleConfirmDel() {
+  const setToRemove = currentDelBtn.getAttribute("data-delbtn");
   const savedSetsWithoutDel = savedSets.filter((set) => {
     return set.setName !== setToRemove;
   });
   savedSets = [...savedSetsWithoutDel];
-  saveSetToLocalStorage(savedSets);
+  saveToLocalStorage(savedSets, STORAGE_KEY);
   fillInSelectOptions();
   handleCellsClear();
+  selectTextContent.textContent = "Select a set";
+  body.classList.remove("blocked");
+  confirmation.classList.remove("show");
+}
+
+function handleConfirmCancel() {
+  body.classList.remove("blocked");
+  confirmation.classList.remove("show");
 }
 
 function fillCells(arr) {
   cellElements.forEach((cell, index) => {
     cell.textContent = "";
     cell.textContent = arr[index];
+    cell.style.fontSize = `${sliderEl.value}px`;
   });
 }
 
@@ -388,8 +445,10 @@ function handleUndo() {
   setBoardHoverClass();
 }
 
-function handleFontSizeControl(event) {
+function handleFontSizeControl() {
   cellElements.forEach((cell) => {
     cell.style.fontSize = `${sliderEl.value}px`;
   });
+  themeSettings.fontSize = sliderEl.value;
+  saveToLocalStorage(themeSettings, THEME_KEY);
 }
