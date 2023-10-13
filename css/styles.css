@@ -365,6 +365,8 @@ ul {
 
 .tooltip .tooltiptext {
   position: absolute;
+  top: 0;
+  left: 253px;
   z-index: 1;
 
   visibility: hidden;
