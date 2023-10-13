@@ -217,32 +217,53 @@ function setCreate(event) {
     return;
   }
 
-  wordsArr = [];
+  const newSetName = setsName.value.toLowerCase().trim();
 
-  inputElements.forEach((input) => {
-    wordsArr.push(input.value.toLowerCase().trim());
+  // checking is name aleready in the saved list
+  const setNameNotAvailable = savedSets.some((set) => {
+    return set.setName === newSetName;
   });
 
-  newSet = {
-    setName: setsName.value.toLowerCase().trim(),
-    setWords: wordsArr,
-  };
-  savedSets.push(newSet);
+  if (setNameNotAvailable) {
+    Toastify({
+      text: "This Set name is already in use",
+      duration: 2500,
+      gravity: "top",
+      position: "left",
+      stopOnFocus: true,
+      style: {
+        background: "linear-gradient(to right, #EE0022, #e74c3c)",
+      },
+    }).showToast();
+    return;
+  } else {
+    wordsArr = [];
 
-  form.reset();
-  Toastify({
-    text: "New set was created",
-    duration: 1300,
-    gravity: "top",
-    position: "left",
-    stopOnFocus: true,
-    style: {
-      background: "linear-gradient(to right, #00b09b, #96c93d)",
-    },
-  }).showToast();
+    inputElements.forEach((input) => {
+      wordsArr.push(input.value.toLowerCase().trim());
+    });
 
-  saveToLocalStorage(savedSets, STORAGE_KEY);
-  fillInSelectOptions();
+    newSet = {
+      setName: newSetName,
+      setWords: wordsArr,
+    };
+    savedSets.push(newSet);
+
+    form.reset();
+    Toastify({
+      text: "New set was created",
+      duration: 1300,
+      gravity: "top",
+      position: "left",
+      stopOnFocus: true,
+      style: {
+        background: "linear-gradient(to right, #00b09b, #96c93d)",
+      },
+    }).showToast();
+
+    saveToLocalStorage(savedSets, STORAGE_KEY);
+    fillInSelectOptions();
+  }
 }
 
 function onSelectBtnClick() {
