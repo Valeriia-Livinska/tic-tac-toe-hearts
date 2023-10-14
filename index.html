@@ -53,92 +53,121 @@
         </div>
         <div class="backdrop">
           <div class="settings-wrapper">
-            <form
-              action=""
-              autocomplete="off"
-              class="input-form"
-              id="inputForm"
-            >
-              <div>
-                <div class="set-name-wrapper">
-                  <p>Create new set</p>
-                  <fieldset class="sets-name tooltip">
-                    <input
-                      type="text"
-                      data-sets-name
-                      id="setsName"
-                      name="sets-name"
-                      pattern="\S+"
-                      required
-                    />
-                    <label for="setsName" id="sets-name" class="sets-name-label"
-                      >Set's name (single-word)</label
-                    >
-                    <span class="tooltiptext"
-                      >Do not use whitespace character</span
-                    >
-                  </fieldset>
+            <div class="form-wrapper">
+              <form
+                action=""
+                autocomplete="off"
+                class="input-form"
+                id="inputForm"
+              >
+                <div>
+                  <div class="set-name-wrapper">
+                    <p>Create new set</p>
+                    <fieldset class="sets-name tooltip">
+                      <input
+                        type="text"
+                        data-sets-name
+                        id="setsName"
+                        name="sets-name"
+                        pattern="\S+"
+                        required
+                      />
+                      <label
+                        for="setsName"
+                        id="sets-name"
+                        class="sets-name-label"
+                        >Set's name (single-word)</label
+                      >
+                      <span class="tooltiptext"
+                        >Do not use whitespace character</span
+                      >
+                    </fieldset>
+                  </div>
+                  <div class="scene">
+                    <div class="card">
+                      <fieldset class="card-fase set-words-wrapper">
+                      <input
+                        type="text"
+                        data-cell-value
+                        name="cell-value"
+                        required
+                      />
+                      <input
+                        type="text"
+                        data-cell-value
+                        name="cell-value"
+                        required
+                      />
+                      <input
+                        type="text"
+                        data-cell-value
+                        name="cell-value"
+                        required
+                      />
+                      <input
+                        type="text"
+                        data-cell-value
+                        name="cell-value"
+                        required
+                      />
+                      <input
+                        type="text"
+                        data-cell-value
+                        name="cell-value"
+                        required
+                      />
+                      <input
+                        type="text"
+                        data-cell-value
+                        name="cell-value"
+                        required
+                      />
+                      <input
+                        type="text"
+                        data-cell-value
+                        name="cell-value"
+                        required
+                      />
+                      <input
+                        type="text"
+                        data-cell-value
+                        name="cell-value"
+                        required
+                      />
+                      <input
+                        type="text"
+                        data-cell-value
+                        name="cell-value"
+                        required
+                      />
+                      </fieldset>
+                      <fieldset class="card-fase string-input-wrapper">
+                        <input
+                          type="text"
+                          data-allcells-value
+                          name="allcells-value"
+                          class="string-input"
+                          placeholder="Provide a list of 9 words separated by commas"
+                          required
+                        />
+                      </fieldset>
+                    </div>
+                  </div>
                 </div>
-                <fieldset class="set-words-wrapper">
-                  <input
-                    type="text"
-                    data-cell-value
-                    name="cell-value"
-                    required
-                  />
-                  <input
-                    type="text"
-                    data-cell-value
-                    name="cell-value"
-                    required
-                  />
-                  <input
-                    type="text"
-                    data-cell-value
-                    name="cell-value"
-                    required
-                  />
-                  <input
-                    type="text"
-                    data-cell-value
-                    name="cell-value"
-                    required
-                  />
-                  <input
-                    type="text"
-                    data-cell-value
-                    name="cell-value"
-                    required
-                  />
-                  <input
-                    type="text"
-                    data-cell-value
-                    name="cell-value"
-                    required
-                  />
-                  <input
-                    type="text"
-                    data-cell-value
-                    name="cell-value"
-                    required
-                  />
-                  <input
-                    type="text"
-                    data-cell-value
-                    name="cell-value"
-                    required
-                  />
-                  <input
-                    type="text"
-                    data-cell-value
-                    name="cell-value"
-                    required
-                  />
-                </fieldset>
+                <button type="submit" class="btn">create</button>
+                <button type="button" id="clearButton" class="btn">
+                  clear
+                </button>
+              </form>
+              <div class="input-swither-wrapper">
+                <p>input in cells</p>
+                <label class="switch">
+                  <input type="checkbox" class="switch-input" />
+                  <span class="slider"></span>
+                </label>
+                <p>input as string</pclass=>
               </div>
-              <button type="submit" class="btn">create</button>
-              <button type="button" id="clearButton" class="btn">clear</button>
-            </form>
+            </div>
 
             <div class="font-control-wrapper">
               <label for="fontSizeControl">Font size on board</label>

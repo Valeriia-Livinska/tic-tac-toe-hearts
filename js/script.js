@@ -32,6 +32,8 @@ const confirmCancel = document.getElementById("confirmCancel");
 const form = document.getElementById("inputForm");
 const setsName = document.getElementById("setsName");
 const inputElements = document.querySelectorAll("[data-cell-value]");
+const card = document.querySelector(".card");
+const inputSwitcher = document.querySelector(".switch-input");
 const clearBtn = document.getElementById("clearButton");
 
 const sliderEl = document.getElementById("fontSizeControl");
@@ -73,6 +75,7 @@ selectBtn.addEventListener("click", onSelectBtnClick);
 confirmDel.addEventListener("click", handleConfirmDel);
 confirmCancel.addEventListener("click", handleConfirmCancel);
 form.addEventListener("submit", setCreate);
+inputSwitcher.addEventListener("change", onSwitchInputChange);
 clearBtn.addEventListener("click", handleFormClear);
 sliderEl.addEventListener("input", handleFontSizeControl);
 firstPlayerIcons.forEach((firstIconBtn) => {
@@ -264,6 +267,10 @@ function setCreate(event) {
     saveToLocalStorage(savedSets, STORAGE_KEY);
     fillInSelectOptions();
   }
+}
+
+function onSwitchInputChange() {
+  card.classList.toggle("is-flipped");
 }
 
 function onSelectBtnClick() {
