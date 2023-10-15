@@ -33,6 +33,7 @@ const form = document.getElementById("inputForm");
 const setsName = document.getElementById("setsName");
 const inputElements = document.querySelectorAll("[data-cell-value]");
 const card = document.querySelector(".card");
+const stringInput = document.getElementById("allcellsValue");
 const inputSwitcher = document.querySelector(".switch-input");
 const clearBtn = document.getElementById("clearButton");
 
@@ -76,6 +77,7 @@ confirmDel.addEventListener("click", handleConfirmDel);
 confirmCancel.addEventListener("click", handleConfirmCancel);
 form.addEventListener("submit", setCreate);
 inputSwitcher.addEventListener("change", onSwitchInputChange);
+stringInput.addEventListener("input", onStringInputChange);
 clearBtn.addEventListener("click", handleFormClear);
 sliderEl.addEventListener("input", handleFontSizeControl);
 firstPlayerIcons.forEach((firstIconBtn) => {
@@ -222,7 +224,7 @@ function setCreate(event) {
 
   const newSetName = setsName.value.toLowerCase().trim();
 
-  // checking is name aleready in the saved list
+  // checking if name is already in the saved list
   const setNameNotAvailable = savedSets.some((set) => {
     return set.setName === newSetName;
   });
@@ -271,6 +273,28 @@ function setCreate(event) {
 
 function onSwitchInputChange() {
   card.classList.toggle("is-flipped");
+
+  if (inputSwitcher.checked) {
+    stringInput.required = true;
+  } else {
+    stringInput.required = false;
+  }
+}
+
+function onStringInputChange(event) {
+  const arrayFromString = event.target.value.split(",", 9);
+  const optimizedArray = arrayFromString.map((word) => {
+    return word.toLowerCase().trim();
+  });
+
+  // fill in every separated input with the value provided in string input
+  inputElements.forEach((input, index) => {
+    if (!optimizedArray[index]) {
+      input.value = "";
+    } else {
+      input.value = optimizedArray[index];
+    }
+  });
 }
 
 function onSelectBtnClick() {
