@@ -56,6 +56,7 @@ const restartBtn = document.getElementById("restartButton");
 
 let savedSets;
 let newSet = {};
+let separatedInputsValues;
 let themeSettings;
 let heartTurn;
 let wordsArr;
@@ -76,6 +77,9 @@ selectBtn.addEventListener("click", onSelectBtnClick);
 confirmDel.addEventListener("click", handleConfirmDel);
 confirmCancel.addEventListener("click", handleConfirmCancel);
 form.addEventListener("submit", setCreate);
+inputElements.forEach((input) => {
+  input.addEventListener("change", onSeprateInputChange);
+});
 inputSwitcher.addEventListener("change", onSwitchInputChange);
 stringInput.addEventListener("input", onStringInputChange);
 clearBtn.addEventListener("click", handleFormClear);
@@ -271,14 +275,20 @@ function setCreate(event) {
   }
 }
 
+function onSeprateInputChange() {
+  separatedInputsValues = [];
+  // get input value to fill in the string in textarea
+  inputElements.forEach((input) => {
+    if (input.value) {
+      separatedInputsValues.push(input.value.toLowerCase().trim());
+    }
+  });
+
+  stringInput.value = separatedInputsValues.join(",");
+}
+
 function onSwitchInputChange() {
   card.classList.toggle("is-flipped");
-
-  if (inputSwitcher.checked) {
-    stringInput.required = true;
-  } else {
-    stringInput.required = false;
-  }
 }
 
 function onStringInputChange(event) {
@@ -380,6 +390,7 @@ function fillCells(arr) {
 
 function handleFormClear() {
   form.reset();
+  separatedInputsValues = [];
 }
 
 function handleCellsClear() {
