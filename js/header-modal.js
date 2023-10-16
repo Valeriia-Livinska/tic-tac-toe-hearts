@@ -8,6 +8,5 @@ hamburgerMenu.addEventListener("click", () => {
   hamburgerMenu.classList.toggle("active");
   settings.classList.toggle("active");
   backdrop.classList.toggle("active");
-  document.body.classList.toggle("scroll-hidden");
   setSelection.classList.toggle("hidden");
 });
