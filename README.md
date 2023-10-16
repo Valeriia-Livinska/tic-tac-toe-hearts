@@ -13,6 +13,5 @@ Instruction:
 5. After the start of the game (first move), the ability to change the players' icons is blocked. The option is available after the end of the round before the first turn.
 6. Completing words in a new set:
    - it is possible to input values in cells and create a set;
-   - it is possible to switch to input as a string (but if words were entered in individual cells before that, after the start of filling in the string, the cells will be cleared and re-filled with words that will be entered in the string);
-   - words from the string fill the cells and can be checked, but edited only in the string mode;
-   - words from the string fill the cells, but filling in the cells will not fill the string;
+   - it is possible to switch to mode input as a string and create a set;
+   - Regardless of the mode in which words are entered, they will be filled in both modes;
