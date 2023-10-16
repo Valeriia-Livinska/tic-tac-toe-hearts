@@ -507,7 +507,7 @@ ul {
   bottom: 0;
   border: 1px solid var(--secondary-background-accent-color);
   border-radius: 22px;
-  background-color: var(--primary-accent-color);
+  background-color: var(--secondary-background-color);
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
@@ -523,10 +523,6 @@ ul {
   background-color: var(--secondary-background-accent-color);
   -webkit-transition: 0.4s;
   transition: 0.4s;
-}
-
-.switch-input:checked + .slider {
-  background-color: var(--secondary-background-color);
 }
 
 .switch-input:focus + .slider {
